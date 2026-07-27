@@ -1,6 +1,6 @@
 // Preziscore🇭🇹 - premye fonksyon yo
 
-console.log("PreziScore Live pare!");
+console.log("PreziScore🇭🇹 pare!");
 
 function updateScore(team1, score1, team2, score2) {
     console.log(team1 + " " + score1 + " - " + score2 + " " + team2);
@@ -47,11 +47,11 @@ function showPage(page) {
     let content = document.querySelector(".matches");
 
     if (page === "Match") {
-
+<button onclick="homePage()" class="home">🏠 Akèy</button>
     content.innerHTML = "<h2>Match an dirèk</h2>";
 
     matches.forEach(match => {
-
+<button onclick="homePage()" class="home">🏠 Akèy</button>
         content.innerHTML += `
         <div class="match">
 
@@ -72,7 +72,7 @@ function showPage(page) {
 
     }
 
-    if (page === "Live") {
+    if (page<button onclick="homePage()" class="home">🏠 Akèy</button> === "Live") {
         content.innerHTML = `
         <h2>🔥 Match Live</h2>
 
@@ -84,7 +84,7 @@ function showPage(page) {
         </div>`;
     }
 
-
+<button onclick="homePage()" class="home">🏠 Akèy</button>
     if (page === "Klasman") {
         content.innerHTML = `
         <h2>🏆 Klasman</h2>
@@ -96,7 +96,7 @@ function showPage(page) {
         </div>`;
     }
 
-
+<button onclick="homePage()" class="home">🏠 Akèy</button>
     if (page === "Favori") {
         content.innerHTML = `
         <h2>⭐ Favori</h2>
@@ -106,4 +106,24 @@ function showPage(page) {
         </div>`;
     }
 
+}
+function homePage(){
+
+    let content = document.querySelector(".matches");
+
+    content.innerHTML = `
+    <h2>Match an dirèk</h2>
+
+    <div class="match">
+        <small>🌍 Coupe du Monde</small>
+        <span class="live">🔴 LIVE</span>
+
+        <h3>🇭🇹 Haiti</h3>
+        <p>0 - 0</p>
+        <h3>🇲🇦 Maroc</h3>
+
+        <span>⏱️ 25'</span>
+    </div>
+
+    `;
 }
