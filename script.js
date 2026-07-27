@@ -144,3 +144,37 @@ function homePage(){
     `;
 
 }
+function matchDetails(){
+
+let content = document.querySelector(".matches");
+
+content.innerHTML = `
+
+<button onclick="homePage()" class="home">
+🏠 Akèy
+</button>
+
+<h2>⚽ Haiti vs Maroc</h2>
+
+<div class="match">
+
+<h3>🇭🇹 Haiti 0 - 0 🇲🇦 Maroc</h3>
+
+<p>⏱️ 25'</p>
+
+<hr>
+
+<h3>🥅 Gòl</h3>
+<p>Pa gen gòl ankò</p>
+
+<h3>🟨 Kat jòn</h3>
+<p>Okenn</p>
+
+<h3>📊 Statistik</h3>
+<p>Posesyon: 50% - 50%</p>
+
+</div>
+
+`;
+
+}
