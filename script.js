@@ -47,21 +47,30 @@ function showPage(page) {
     let content = document.querySelector(".matches");
 
     if (page === "Match") {
-        content.innerHTML = `
-        <h2>Match an dirèk</h2>
 
+    content.innerHTML = "<h2>Match an dirèk</h2>";
+
+    matches.forEach(match => {
+
+        content.innerHTML += `
         <div class="match">
-            <small>🌍 Coupe du Monde</small>
-            <span class="live">🔴 LIVE</span>
 
-            <h3>🇭🇹 Haiti</h3>
-            <p>0 - 0</p>
-            <h3>🇲🇦 Maroc</h3>
+            <small>${match.league}</small>
 
-            <span>⏱️ 25'</span>
-        </div>`;
+            ${match.live ? '<span class="live">🔴 LIVE</span>' : ''}
+
+            <h3>${match.home}</h3>
+            <p>${match.score}</p>
+            <h3>${match.away}</h3>
+
+            <span>${match.time}</span>
+
+        </div>
+        `;
+
+    });
+
     }
-
 
     if (page === "Live") {
         content.innerHTML = `
