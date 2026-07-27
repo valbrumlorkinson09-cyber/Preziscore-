@@ -1,6 +1,6 @@
-// FIA Score Live - premye fonksyon yo
+// Preziscore live - premye fonksyon yo
 
-console.log("FIA Score Live pare!");
+console.log("PreziScore Live pare!");
 
 function updateScore(team1, score1, team2, score2) {
     console.log(team1 + " " + score1 + " - " + score2 + " " + team2);
