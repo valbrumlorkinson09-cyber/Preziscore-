@@ -92,3 +92,25 @@ header h1 {
     color: #0b5cff;
     font-size: 35px;
 }
+.league {
+    background: #0b5cff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.league h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.league-card {
+    background: white;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
