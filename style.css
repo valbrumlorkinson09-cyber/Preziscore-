@@ -53,14 +53,17 @@ header h1 {
     padding: 15px 5px;
     box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
     z-index: 1000;
-}
-
-.menu button {
+}.menu button {
     border: none;
     background: none;
-    font-size: 17px;
+    font-size: 22px;
     font-weight: bold;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
+}
+
+.menu {
+    height: 75px;
+    align-items: center;
 }
 
