@@ -180,3 +180,25 @@ header h1 {
     border-radius: 20px;
     float: right;
 }
+.teams {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    font-size: 45px;
+}
+
+.teams p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.fav {
+    margin-top: 10px;
+    border: none;
+    background: none;
+    font-size: 25px;
+    cursor: pointer;
+}
