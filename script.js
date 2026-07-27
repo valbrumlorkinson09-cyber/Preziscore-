@@ -1,4 +1,4 @@
-// Preziscore live - premye fonksyon yo
+// Preziscore🇭🇹 - premye fonksyon yo
 
 console.log("PreziScore Live pare!");
 
@@ -8,6 +8,40 @@ function updateScore(team1, score1, team2, score2) {
 
 // Egzanp mizajou match
 updateScore("Haiti", 1, "Maroc", 0);
+
+const matches = [
+    {
+        league: "🌍 Coupe du Monde",
+        home: "🇭🇹 Haiti",
+        away: "🇲🇦 Maroc",
+        score: "0 - 0",
+        time: "⏱️ 25'",
+        live: true
+    },
+
+    {
+        league: "🏆 Ligue des Champions",
+        home: "🇫🇷 France",
+        away: "🇧🇷 Brazil",
+        score: "2 - 1",
+        time: "Terminé",
+        live: false
+    },
+
+    {
+        league: "🏴 Premier League",
+        home: "🇬🇧 Arsenal",
+        away: "🇪🇸 Real Madrid",
+        score: "1 - 0",
+        time: "⏱️ 60'",
+        live: true
+    }
+];
+
+
+function showPage(page) {
+    // ansyen kòd la rete anba
+}
 function showPage(page) {
 
     let content = document.querySelector(".matches");
