@@ -219,3 +219,26 @@ header h1 {
     border-radius: 10px;
     margin-top: 10px;
 }
+.table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+.table th{
+    background:#0b5cff;
+    color:white;
+    padding:12px;
+    font-size:16px;
+}
+
+.table td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+    font-size:15px;
+}
+
+.table tr:hover{
+    background:#f5f5f5;
+}
