@@ -1,162 +1,421 @@
+
 /* ==========================
    PREZISCORE 🇭🇹
-   API.JS - PART 1
+   GLOBAL API.JS
+   PARTIE 1
 ========================== */
+
+
+/* ==========================
+   API CONFIGURATION
+========================== */
+
 
 const API_KEY = "9ffcd813946b3dd7151dbf7b1702a4b4";
-const BASE_URL = "https://v3.football.api-sports.io";
 
-const headers = {
+
+const API_URL = 
+"https://v3.football.api-sports.io/";
+
+
+
+
+
+/* ==========================
+   HEADERS
+========================== */
+
+
+const apiHeaders = {
+
     "x-apisports-key": API_KEY
+
 };
 
-// Dat jodi a
-function getToday() {
-    const d = new Date();
-    return d.toISOString().split("T")[0];
-}
 
-// Rechèch API
-async function apiRequest(endpoint) {
 
-    try {
 
-        const res = await fetch(BASE_URL + endpoint, {
-            headers: headers
-        });
 
-        const data = await res.json();
-
-        return data.response;
-
-    } catch (err) {
-
-        console.error("API Error:", err);
-        return [];
-
-    }
-
-}
 /* ==========================
-   MATCH LIVE
+   GET MATCH LIVE
 ========================== */
+
 
 async function getLiveMatches(){
 
-    const matches = await apiRequest("/fixtures?live=all");
 
-    console.log("🔴 Match Live:", matches);
+    try{
 
-    return matches;
+
+        const response =
+        await fetch(
+        API_URL + "fixtures?live=all",
+        {
+            method:"GET",
+            headers:apiHeaders
+        }
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        console.log(
+        "Match Live:",
+        data
+        );
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Erreur API:",
+        error
+        );
+
+
+    }
+
 
 }
+
+
+
 
 
 /* ==========================
-   MATCH JOUNEN AN
+   GET MATCH JODI A
 ========================== */
 
-async function getTodayMatches(){
 
-    const today = getToday();
+async function getTodayMatches(date){
 
-    const matches = await apiRequest(
-        `/fixtures?date=${today}`
-    );
 
-    console.log("📅 Match Jodi a:", matches);
+    try{
 
-    return matches;
+
+        const response =
+        await fetch(
+        API_URL + 
+        "fixtures?date=" + date,
+        {
+
+            method:"GET",
+
+            headers:apiHeaders
+
+        }
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+
+    }
+
 
 }
+
+/* ==========================
+   PREZISCORE 🇭🇹
+   GLOBAL API.JS
+   PARTIE 2A
+========================== */
+
+
+/* ==========================
+   GET STANDINGS
+   KLASMAN EKIP
+========================== */
+
+
+async function getStandings(league, season){
+
+
+    try{
+
+
+        const response = await fetch(
+
+        API_URL +
+        "standings?league=" +
+        league +
+        "&season=" +
+        season,
+
+        {
+
+            method:"GET",
+
+            headers:apiHeaders
+
+        }
+
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        console.log(
+        "Klasman:",
+        data
+        );
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Erreur classement:",
+        error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   GET TEAM INFO
+   ENFÒMASYON EKIP
+========================== */
+
+
+async function getTeam(teamId){
+
+
+    try{
+
+
+        const response =
+        await fetch(
+
+        API_URL +
+        "teams?id=" +
+        teamId,
+
+        {
+
+            method:"GET",
+
+            headers:apiHeaders
+
+        }
+
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Erreur ekip:",
+        error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   GET PLAYER INFO
+   ENFÒMASYON JWÈ
+========================== */
+
+
+async function getPlayer(playerId, season){
+
+
+    try{
+
+
+        const response =
+        await fetch(
+
+        API_URL +
+        "players?id=" +
+        playerId +
+        "&season=" +
+        season,
+
+        {
+
+            method:"GET",
+
+            headers:apiHeaders
+
+        }
+
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Erreur jwè:",
+        error
+        );
+
+
+    }
+
+
+}
+
+/* ==========================
+   PREZISCORE 🇭🇹
+   GLOBAL API.JS
+   PARTIE 2B
+========================== */
 
 
 /* ==========================
    AFFICHE MATCH LIVE
 ========================== */
 
+
 async function displayLiveMatches(){
-
-    const container = document.querySelector(".cards");
-
-    if(!container) return;
 
 
     const matches = await getLiveMatches();
 
 
-    if(matches.length === 0){
+    const container =
+    document.getElementById("live-container");
 
-        container.innerHTML = `
-        <div class="match-card">
-            <h3>Pa gen match LIVE kounye a ⚽</h3>
-        </div>
-        `;
 
-        return;
-    }
+
+    if(!container || !matches) return;
+
 
 
     container.innerHTML = "";
 
 
-    matches.slice(0,5).forEach(match=>{
 
-
-        const home = match.teams.home.name;
-
-        const away = match.teams.away.name;
-
-        const homeLogo = match.teams.home.logo;
-
-        const awayLogo = match.teams.away.logo;
-
-
-        const scoreHome = match.goals.home ?? 0;
-
-        const scoreAway = match.goals.away ?? 0;
+    matches.forEach(match=>{
 
 
         container.innerHTML += `
 
         <div class="match-card live">
 
+
             <div class="league">
 
-                🔴 LIVE
+            🔴 LIVE
 
-                <span class="minute">
-                ${match.fixture.status.elapsed || 0}'
-                </span>
+            <span>
+            ${match.fixture.status.elapsed || 0}'
+            </span>
 
             </div>
+
 
 
             <div class="teams">
 
+
                 <div>
 
-                    <img src="${homeLogo}">
+                <img src="${match.teams.home.logo}">
 
-                    <p>${home}</p>
+                <p>
+                ${match.teams.home.name}
+                </p>
 
                 </div>
+
 
 
                 <h2>
-                ${scoreHome} - ${scoreAway}
+
+                ${match.goals.home}
+                -
+                ${match.goals.away}
+
                 </h2>
+
 
 
                 <div>
 
-                    <img src="${awayLogo}">
+                <img src="${match.teams.away.logo}">
 
-                    <p>${away}</p>
+                <p>
+                ${match.teams.away.name}
+                </p>
 
                 </div>
 
+
             </div>
+
 
         </div>
 
@@ -165,98 +424,119 @@ async function displayLiveMatches(){
 
     });
 
+
 }
+
+
+
+
+
+
 /* ==========================
-   KLASMAN LIG
+   AFFICHE MATCH JODI A
 ========================== */
 
-async function getStandings(leagueId, season){
 
-    const data = await apiRequest(
-        `/standings?league=${leagueId}&season=${season}`
+async function displayTodayMatches(date){
+
+
+    const matches =
+    await getTodayMatches(date);
+
+
+
+    const container =
+    document.getElementById("today-container");
+
+
+
+    if(!container || !matches) return;
+
+
+
+    container.innerHTML = "";
+
+
+
+    matches.slice(0,10).forEach(match=>{
+
+
+        container.innerHTML += `
+
+        <div class="match-card">
+
+
+        <div class="league">
+
+        ${match.league.name}
+
+        <span>
+        ${match.fixture.status.short}
+        </span>
+
+        </div>
+
+
+
+        <div class="teams">
+
+
+        <div>
+
+        <img src="${match.teams.home.logo}">
+
+        <p>${match.teams.home.name}</p>
+
+        </div>
+
+
+
+        <h3>
+        VS
+        </h3>
+
+
+
+        <div>
+
+        <img src="${match.teams.away.logo}">
+
+        <p>${match.teams.away.name}</p>
+
+        </div>
+
+
+        </div>
+
+
+        </div>
+
+        `;
+
+
+    });
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   START API
+========================== */
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+    console.log(
+    "⚽ PreziScore API pare"
     );
 
-    console.log("🏆 Klasman:", data);
-
-    return data;
-
-}
-
-
-/* ==========================
-   ENFO EKIP
-========================== */
-
-async function getTeam(teamId){
-
-    const data = await apiRequest(
-        `/teams?id=${teamId}`
-    );
-
-    console.log("👕 Ekip:", data);
-
-    return data;
-
-}
-
-
-/* ==========================
-   LIS JWÈ
-========================== */
-
-async function getPlayers(teamId, season){
-
-    const data = await apiRequest(
-        `/players?team=${teamId}&season=${season}`
-    );
-
-    console.log("👤 Jwè yo:", data);
-
-    return data;
-
-}
-
-
-/* ==========================
-   DETAIL MATCH
-========================== */
-
-async function getFixtureDetails(fixtureId){
-
-    const data = await apiRequest(
-        `/fixtures?id=${fixtureId}`
-    );
-
-    console.log("📊 Detay match:", data);
-
-    return data;
-
-}
-
-
-/* ==========================
-   AUTO REFRESH LIVE
-========================== */
-
-function startLiveRefresh(){
-
-    displayLiveMatches();
-
-    setInterval(()=>{
-
-        displayLiveMatches();
-
-    },60000);
-
-}
-
-
-/* ==========================
-   DEMARA API
-========================== */
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    startLiveRefresh();
 
 });
