@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ht">
 
@@ -25,7 +24,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="logo">
 
-<h1>⚽ PREZISCORE</h1>
+<h1>⚽ PREZISCORE 🇭🇹</h1>
 
 <p>Tout match foutbòl yo</p>
 
@@ -40,9 +39,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <section class="section-title">
 
-
 <h2>📅 Match Jodi a</h2>
-
 
 </section>
 
@@ -58,7 +55,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="league">
 
-🔄 Ap chèche match yo...
+🔄 PreziScore ap chèche match yo...
 
 </div>
 
@@ -68,7 +65,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <h3>
 
-PreziScore ap konekte...
+Tanpri tann...
 
 </h3>
 
@@ -101,7 +98,7 @@ PreziScore ap konekte...
 
 <p>
 
-Pi gwo afich yo ap parèt isit la otomatikman.
+Pi gwo afich foutbòl yo ap parèt otomatikman.
 
 </p>
 
@@ -110,7 +107,6 @@ Pi gwo afich yo ap parèt isit la otomatikman.
 
 
 </section>
-
 <nav class="bottom-nav">
 
 
@@ -169,32 +165,62 @@ Pi gwo afich yo ap parèt isit la otomatikman.
 
 
 
+<section class="search">
+
+
+<input 
+type="text"
+id="match-search"
+placeholder="🔍 Chèche ekip oswa lig..."
+>
+
+
+</section>
+
+
+
+
+
 <script src="api.js"></script>
 
 <script src="script.js"></script>
+
 
 
 <script>
 
 
 /* ==========================
-   PREZISCORE MATCH START
+   PREZISCORE MATCH FINAL
 ========================== */
+
+
+
+function getLocalDate(){
+
+
+let d = new Date();
+
+
+return d.getFullYear()
++ "-"
++ String(d.getMonth()+1).padStart(2,"0")
++ "-"
++ String(d.getDate()).padStart(2,"0");
+
+
+}
+
+
 
 
 async function startMatches(){
 
 
-    let today = new Date()
-
-    .toISOString()
-
-    .split("T")[0];
+let today = getLocalDate();
 
 
-
-    await displayTodayMatches(today);
-
+await displayTodayMatches(today);
 
 
 }
@@ -206,80 +232,53 @@ startMatches();
 
 
 
-/* Rafrechi chak 1 minit */
+
+/* Refresh chak 60 segonn */
 
 
 setInterval(()=>{
 
 
-    let today = new Date()
-
-    .toISOString()
-
-    .split("T")[0];
+let today = getLocalDate();
 
 
-
-    displayTodayMatches(today);
+displayTodayMatches(today);
 
 
 },60000);
 
 
 
-</script>
-
-
-<section class="search">
-
-
-<input 
-type="text" 
-id="match-search"
-placeholder="🔍 Chèche yon ekip oswa lig..."
->
-
-
-</section>
-
-
-
-
-
-<script>
 
 
 /* ==========================
-   PREZISCORE MATCH SEARCH
+   SEARCH MATCH
 ========================== */
 
 
-const searchInput =
+const search =
 document.getElementById("match-search");
 
 
 
-if(searchInput){
+if(search){
 
 
-searchInput.addEventListener(
+search.addEventListener(
 "keyup",
 ()=>{
 
 
 let value =
-searchInput.value.toLowerCase();
+search.value.toLowerCase();
 
 
 
-const cards =
-document.querySelectorAll(
+document
+.querySelectorAll(
 "#today-container .match-card"
-);
-
-
-
-cards.forEach(card=>{
+)
+.forEach(card=>{
 
 
 let text =
@@ -314,38 +313,9 @@ card.style.display="none";
 
 
 
-/* ==========================
-   MATCH ANIMATION
-========================== */
-
-
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-
-const cards =
-document.querySelectorAll(
-".match-card"
-);
-
-
-
-cards.forEach((card,index)=>{
-
-
-card.style.animation =
-"fadeIn 0.5s ease " + 
-(index * 0.1) + "s";
-
-
-});
-
-
-});
-
-
 </script>
+
+
 
 </body>
 
