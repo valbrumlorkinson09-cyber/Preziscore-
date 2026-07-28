@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ht">
 
@@ -21,13 +22,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <header class="header">
 
+
 <div class="logo">
 
-<h1>⚽ PREZISCORE</h1>
+<h1>🔴 PREZISCORE LIVE</h1>
 
-<p>Match an dirèk 🔴</p>
+<p>Match an dirèk ⚽</p>
 
 </div>
+
 
 
 <div class="notif">
@@ -36,21 +39,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+
 </header>
+
+
 
 
 
 <section class="section-title">
 
-<h2>🔴 Match Live</h2>
 
-<a href="matches.html">Tout Match</a>
+<h2>🔴 Match Live Kounye a</h2>
+
 
 </section>
 
 
 
-<section class="cards" id="liveMatches">
+
+
+<section id="live-container">
 
 
 <div class="match-card live">
@@ -58,11 +66,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="league">
 
-🇪🇸 LaLiga
-
-<span class="minute">
-65'
-</span>
+🔄 Ap chèche match yo...
 
 </div>
 
@@ -71,81 +75,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="teams">
 
 
-<div>
-
-<img src="assets/images/realmadrid.png">
-
-<p>Real Madrid</p>
-
-</div>
-
-
-
-<h2>
-2 - 1
-</h2>
-
-
-
-<div>
-
-<img src="assets/images/barcelona.png">
-
-<p>Barcelona</p>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="match-card live">
-
-
-<div class="league">
-
-🏴 Premier League
-
-<span class="minute">
-38'
-</span>
-
-</div>
-
-
-
-<div class="teams">
-
-
-<div>
-
-<img src="assets/images/liverpool.png">
-
-<p>Liverpool</p>
-
-</div>
-
-
-
-<h2>
-1 - 0
-</h2>
-
-
-
-<div>
-
-<img src="assets/images/arsenal.png">
-
-<p>Arsenal</p>
-
-</div>
+<h3>
+Tanpri tann...
+</h3>
 
 
 </div>
@@ -156,27 +88,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </section>
 
-<section class="prediction">
 
-<h2>📊 Estatistik Rapid</h2>
-
-
-<div class="predict-card">
-
-<h3>🔥 PreziScore Analyse</h3>
-
-<p>⚽ Tir sou gòl: <b>8 - 5</b></p>
-
-<p>🎯 Posesyon: <b>56% - 44%</b></p>
-
-<p>🚩 Kwen: <b>6 - 3</b></p>
-
-<p>🟨 Kat jòn: <b>2 - 1</b></p>
-
-</div>
-
-
-</section>
 
 
 
@@ -185,25 +97,85 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="section-title">
 
-<h2>🔄 Kontwòl Live</h2>
+<h2>⭐ Match Enpòtan</h2>
 
 </div>
+
 
 
 <div class="match-card">
 
 
-<button onclick="displayLiveMatches()">
-
-🔄 Rafrechi Match yo
-
-</button>
+<p>
+PreziScore ap mete pi gwo match yo isit la.
+</p>
 
 
 </div>
 
 
 </section>
+
+<section class="today">
+
+
+<div class="section-title">
+
+<h2>📊 Estatistik Live</h2>
+
+</div>
+
+
+
+<div class="match-card">
+
+
+<p>🔴 Match aktif: <b>Ap tann done API</b></p>
+
+<p>⚽ Skò yo mete ajou otomatikman</p>
+
+<p>⏱ Minit match la ap parèt an dirèk</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="today">
+
+
+<div class="section-title">
+
+<h2>🔥 Match ki sot pase yo</h2>
+
+</div>
+
+
+
+<div id="finished-container">
+
+
+<div class="match-card">
+
+
+<p>
+Pa gen done pou kounye a...
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
 
 
 
@@ -262,11 +234,50 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </nav>
 
-
+<script src="api.js"></script>
 
 <script src="script.js"></script>
 
-<script src="api.js"></script>
+
+
+<script>
+
+
+/* ==========================
+   PREZISCORE LIVE START
+========================== */
+
+
+async function startLive(){
+
+
+    await displayLiveMatches();
+
+
+}
+
+
+
+startLive();
+
+
+
+/* Rafrechi match yo chak 30 segonn */
+
+setInterval(()=>{
+
+
+    displayLiveMatches();
+
+
+},30000);
+
+
+
+</script>
+
+
+
 
 
 </body>
