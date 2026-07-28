@@ -936,6 +936,41 @@ async function loadChampionsLeague(){
 }
 
 
+/* ==========================
+   CHARGE LIGUE 1 FRANCE
+========================== */
+
+
+async function loadLigue1(){
+
+
+    const season = 2025;
+
+    const league = 61; // Ligue 1
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        displayStandings(
+            "ligue1-table",
+            data[0].league.standings[0]
+        );
+
+
+    }
+
+
+}
 
 
 
@@ -970,6 +1005,6 @@ document.addEventListener(
 
 
     refreshStandings();
-
+loadLigue1();
 
 });
