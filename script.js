@@ -105,27 +105,15 @@ function showPage(page){
             </tr>
 
             <tr>
-                <td>1</td>
-                <td>🇭🇹 Haiti</td>
-                <td>9</td>
+                <td onclick="teamPage('🇭🇹 Haiti')">🇭🇹 Haiti</td>
             </tr>
 
             <tr>
-                <td>2</td>
-                <td>🇲🇦 Maroc</td>
-                <td>6</td>
+            
             </tr>
-
-            <tr>
-                <td>3</td>
-                <td>🇫🇷 France</td>
-                <td>3</td>
-            </tr>
-
-            <tr>
-                <td>4</td>
-                <td>🇧🇷 Brazil</td>
-                <td>0</td>
+<td onclick="teamPage('🇲🇦 Maroc')">🇲🇦 Maroc</td>
+<td onclick="teamPage('🇫🇷 France')">🇫🇷 France</td>
+<td onclick="teamPage('🇧🇷 Brazil')">🇧🇷 Brazil</td>
             </tr>
         </table>
     </div>
