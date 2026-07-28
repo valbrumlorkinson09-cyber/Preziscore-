@@ -91,17 +91,45 @@ function showPage(page){
     }
 
 
-    if(page === "Klasman"){
+    if (page === "Klasman") {
 
-        content.innerHTML = homeButton() + `
-        <h2>🏆 Klasman</h2>
+    content.innerHTML = homeButton() + `
+    <h2>🏆 Klasman Mondyal</h2>
 
-        <div class="match">
-            🥇 1 - Haiti<br>
-            🥈 2 - Maroc<br>
-            🥉 3 - France
-        </div>
-        `;
+    <div class="match">
+        <table class="table">
+            <tr>
+                <th>#</th>
+                <th>Ekip</th>
+                <th>Pwen</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>🇭🇹 Haiti</td>
+                <td>9</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>🇲🇦 Maroc</td>
+                <td>6</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>🇫🇷 France</td>
+                <td>3</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>🇧🇷 Brazil</td>
+                <td>0</td>
+            </tr>
+        </table>
+    </div>
+    `;
     }
 
 
