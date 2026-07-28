@@ -1,7 +1,6 @@
-
 /* ==========================
    PREZISCORE 🇭🇹
-   GLOBAL API.JS
+   API.JS FINAL
    PARTIE 1
 ========================== */
 
@@ -13,17 +12,8 @@
 
 const API_KEY = "9ffcd813946b3dd7151dbf7b1702a4b4";
 
+const API_URL = "https://v3.football.api-sports.io/";
 
-const API_URL = 
-"https://v3.football.api-sports.io/";
-
-
-
-
-
-/* ==========================
-   HEADERS
-========================== */
 
 
 const apiHeaders = {
@@ -37,7 +27,64 @@ const apiHeaders = {
 
 
 /* ==========================
-   GET MATCH LIVE
+   API TEST
+========================== */
+
+
+async function testAPI(){
+
+
+    try{
+
+
+        const response = await fetch(
+
+            API_URL + "status",
+
+            {
+
+                method:"GET",
+
+                headers:apiHeaders
+
+            }
+
+        );
+
+
+        const data = await response.json();
+
+
+        console.log(
+            "API STATUS:",
+            data
+        );
+
+
+        return data;
+
+
+
+    }catch(error){
+
+
+        console.log(
+            "API ERROR:",
+            error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET LIVE MATCH
 ========================== */
 
 
@@ -47,30 +94,33 @@ async function getLiveMatches(){
     try{
 
 
-        const response =
-        await fetch(
-        API_URL + "fixtures?live=all",
-        {
-            method:"GET",
-            headers:apiHeaders
-        }
+        const response = await fetch(
+
+            API_URL + "fixtures?live=all",
+
+            {
+
+                method:"GET",
+
+                headers:apiHeaders
+
+            }
+
         );
 
 
-
-        const data =
-        await response.json();
+        const data = await response.json();
 
 
 
         console.log(
-        "Match Live:",
-        data
+            "LIVE MATCH:",
+            data
         );
 
 
 
-        return data.response;
+        return data.response || [];
 
 
 
@@ -78,15 +128,19 @@ async function getLiveMatches(){
 
 
         console.log(
-        "Erreur API:",
-        error
+            "LIVE ERROR:",
+            error
         );
+
+
+        return [];
 
 
     }
 
 
 }
+
 
 
 
@@ -103,93 +157,33 @@ async function getTodayMatches(date){
     try{
 
 
-        const response =
-        await fetch(
-        API_URL + 
-        "fixtures?date=" + date,
-        {
-
-            method:"GET",
-
-            headers:apiHeaders
-
-        }
-        );
-
-
-
-        const data =
-        await response.json();
-
-
-
-        return data.response;
-
-
-
-    }catch(error){
-
-
-        console.log(error);
-
-
-    }
-
-
-}
-
-/* ==========================
-   PREZISCORE 🇭🇹
-   GLOBAL API.JS
-   PARTIE 2A
-========================== */
-
-
-/* ==========================
-   GET STANDINGS
-   KLASMAN EKIP
-========================== */
-
-
-async function getStandings(league, season){
-
-
-    try{
-
-
         const response = await fetch(
 
-        API_URL +
-        "standings?league=" +
-        league +
-        "&season=" +
-        season,
+            API_URL + "fixtures?date=" + date,
 
-        {
+            {
 
-            method:"GET",
+                method:"GET",
 
-            headers:apiHeaders
+                headers:apiHeaders
 
-        }
+            }
 
         );
 
 
-
-        const data =
-        await response.json();
+        const data = await response.json();
 
 
 
         console.log(
-        "Klasman:",
-        data
+            "TODAY MATCH:",
+            data
         );
 
 
 
-        return data.response;
+        return data.response || [];
 
 
 
@@ -197,152 +191,31 @@ async function getStandings(league, season){
 
 
         console.log(
-        "Erreur classement:",
-        error
+            "TODAY ERROR:",
+            error
         );
+
+
+        return [];
 
 
     }
 
 
 }
-
-
-
-
-
-
-/* ==========================
-   GET TEAM INFO
-   ENFÒMASYON EKIP
-========================== */
-
-
-async function getTeam(teamId){
-
-
-    try{
-
-
-        const response =
-        await fetch(
-
-        API_URL +
-        "teams?id=" +
-        teamId,
-
-        {
-
-            method:"GET",
-
-            headers:apiHeaders
-
-        }
-
-        );
-
-
-
-        const data =
-        await response.json();
-
-
-
-        return data.response;
-
-
-
-    }catch(error){
-
-
-        console.log(
-        "Erreur ekip:",
-        error
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   GET PLAYER INFO
-   ENFÒMASYON JWÈ
-========================== */
-
-
-async function getPlayer(playerId, season){
-
-
-    try{
-
-
-        const response =
-        await fetch(
-
-        API_URL +
-        "players?id=" +
-        playerId +
-        "&season=" +
-        season,
-
-        {
-
-            method:"GET",
-
-            headers:apiHeaders
-
-        }
-
-        );
-
-
-
-        const data =
-        await response.json();
-
-
-
-        return data.response;
-
-
-
-    }catch(error){
-
-
-        console.log(
-        "Erreur jwè:",
-        error
-        );
-
-
-    }
-
-
-}
-
 /* ==========================
    PREZISCORE 🇭🇹
-   GLOBAL API.JS
-   PARTIE 2B
+   API.JS FINAL
+   PARTIE 2
 ========================== */
 
 
 /* ==========================
-   AFFICHE MATCH LIVE
+   DISPLAY LIVE MATCH
 ========================== */
 
 
 async function displayLiveMatches(){
-
-
-    const matches = await getLiveMatches();
 
 
     const container =
@@ -350,7 +223,34 @@ async function displayLiveMatches(){
 
 
 
-    if(!container || !matches) return;
+    if(!container) return;
+
+
+
+    const matches =
+    await getLiveMatches();
+
+
+
+    if(matches.length === 0){
+
+
+        container.innerHTML = `
+
+        <div class="match-card">
+
+        ⚽ Pa gen match LIVE kounye a
+
+        </div>
+
+        `;
+
+
+        return;
+
+
+    }
+
 
 
 
@@ -368,10 +268,12 @@ async function displayLiveMatches(){
 
             <div class="league">
 
-            🔴 LIVE
+            🔴 ${match.league.name}
 
             <span>
+
             ${match.fixture.status.elapsed || 0}'
+
             </span>
 
             </div>
@@ -395,9 +297,11 @@ async function displayLiveMatches(){
 
                 <h2>
 
-                ${match.goals.home}
+                ${match.goals.home ?? 0}
+
                 -
-                ${match.goals.away}
+
+                ${match.goals.away ?? 0}
 
                 </h2>
 
@@ -432,17 +336,13 @@ async function displayLiveMatches(){
 
 
 
+
 /* ==========================
-   AFFICHE MATCH JODI A
+   DISPLAY MATCH JODI A
 ========================== */
 
 
 async function displayTodayMatches(date){
-
-
-    const matches =
-    await getTodayMatches(date);
-
 
 
     const container =
@@ -450,7 +350,34 @@ async function displayTodayMatches(date){
 
 
 
-    if(!container || !matches) return;
+    if(!container) return;
+
+
+
+    const matches =
+    await getTodayMatches(date);
+
+
+
+    if(matches.length === 0){
+
+
+        container.innerHTML = `
+
+        <div class="match-card">
+
+        📅 Pa gen match disponib jodi a
+
+        </div>
+
+        `;
+
+
+        return;
+
+
+    }
+
 
 
 
@@ -458,7 +385,7 @@ async function displayTodayMatches(date){
 
 
 
-    matches.slice(0,10).forEach(match=>{
+    matches.slice(0,20).forEach(match=>{
 
 
         container.innerHTML += `
@@ -466,47 +393,56 @@ async function displayTodayMatches(date){
         <div class="match-card">
 
 
-        <div class="league">
+            <div class="league">
 
-        ${match.league.name}
+            ${match.league.name}
 
-        <span>
-        ${match.fixture.status.short}
-        </span>
+            <span>
 
-        </div>
+            ${match.fixture.status.short}
 
+            </span>
 
-
-        <div class="teams">
-
-
-        <div>
-
-        <img src="${match.teams.home.logo}">
-
-        <p>${match.teams.home.name}</p>
-
-        </div>
+            </div>
 
 
 
-        <h3>
-        VS
-        </h3>
+
+            <div class="teams">
+
+
+                <div>
+
+                <img src="${match.teams.home.logo}">
+
+                <p>
+                ${match.teams.home.name}
+                </p>
+
+                </div>
 
 
 
-        <div>
+                <h3>
 
-        <img src="${match.teams.away.logo}">
+                VS
 
-        <p>${match.teams.away.name}</p>
-
-        </div>
+                </h3>
 
 
-        </div>
+
+                <div>
+
+                <img src="${match.teams.away.logo}">
+
+                <p>
+                ${match.teams.away.name}
+                </p>
+
+                </div>
+
+
+            </div>
 
 
         </div>
@@ -525,7 +461,7 @@ async function displayTodayMatches(date){
 
 
 /* ==========================
-   START API
+   AUTO START MATCH
 ========================== */
 
 
@@ -535,21 +471,21 @@ document.addEventListener(
 
 
     console.log(
-    "⚽ PreziScore API pare"
+    "⚽ PreziScore API FINAL pare"
     );
 
 
 });
-
 /* ==========================
    PREZISCORE 🇭🇹
-   STANDINGS API
-   PARTIE 1
+   API.JS FINAL
+   PARTIE 3
+   STANDINGS
 ========================== */
 
 
 /* ==========================
-   GET LEAGUE STANDINGS
+   GET STANDINGS
 ========================== */
 
 
@@ -561,22 +497,21 @@ async function getLeagueStandings(leagueId, season){
 
         const response = await fetch(
 
-        API_URL +
-        "standings?league=" +
-        leagueId +
-        "&season=" +
-        season,
+            API_URL +
+            "standings?league=" +
+            leagueId +
+            "&season=" +
+            season,
 
-        {
+            {
 
-            method:"GET",
+                method:"GET",
 
-            headers:apiHeaders
+                headers:apiHeaders
 
-        }
+            }
 
         );
-
 
 
         const data =
@@ -585,13 +520,13 @@ async function getLeagueStandings(leagueId, season){
 
 
         console.log(
-        "Standings API:",
-        data
+            "STANDINGS:",
+            data
         );
 
 
 
-        return data.response;
+        return data.response || [];
 
 
 
@@ -599,9 +534,12 @@ async function getLeagueStandings(leagueId, season){
 
 
         console.log(
-        "Erreur standings:",
-        error
+            "STANDINGS ERROR:",
+            error
         );
+
+
+        return [];
 
 
     }
@@ -614,9 +552,8 @@ async function getLeagueStandings(leagueId, season){
 
 
 
-
 /* ==========================
-   AFFICHER KLASMAN
+   DISPLAY STANDINGS
 ========================== */
 
 
@@ -636,58 +573,34 @@ function displayStandings(tableId, teams){
 
 
 
-    teams.forEach((item)=>{
-
-
-        let team =
-        item.team;
-
-
-
-        let stats =
-        item.all;
-
+    teams.forEach(item=>{
 
 
         table.innerHTML += `
 
-
         <tr>
 
-
-        <td>
-
-        ${item.rank}
-
-        </td>
+            <td>
+            ${item.rank}
+            </td>
 
 
-
-        <td>
-
-        ${team.name}
-
-        </td>
+            <td>
+            ${item.team.name}
+            </td>
 
 
-
-        <td>
-
-        ${stats.played}
-
-        </td>
+            <td>
+            ${item.all.played}
+            </td>
 
 
-
-        <td>
-
-        ${item.points}
-
-        </td>
+            <td>
+            ${item.points}
+            </td>
 
 
         </tr>
-
 
         `;
 
@@ -695,24 +608,23 @@ function displayStandings(tableId, teams){
     });
 
 
+}
+
+
+
+
+
+
+
 /* ==========================
-   PREZISCORE 🇭🇹
-   STANDINGS API
-   PARTIE 2A
+   LOAD ALL LEAGUES
 ========================== */
 
 
-/* ==========================
-   CHARGE LALIGA
-========================== */
-
-
-async function loadLaLiga(){
+async function loadLeague(table, league){
 
 
     const season = 2025;
-
-    const league = 140; // LaLiga
 
 
 
@@ -724,15 +636,16 @@ async function loadLaLiga(){
 
 
 
-    if(data && data[0]){
+    if(data[0]){
 
 
         const teams =
         data[0].league.standings[0];
 
 
+
         displayStandings(
-            "laliga-table",
+            table,
             teams
         );
 
@@ -747,254 +660,58 @@ async function loadLaLiga(){
 
 
 
+
 /* ==========================
-   CHARGE PREMIER LEAGUE
+   ALL BIG LEAGUES
 ========================== */
 
 
-async function loadPremierLeague(){
+function loadAllStandings(){
 
 
-    const season = 2025;
-
-    const league = 39; // Premier League
-
-
-
-    const data =
-    await getLeagueStandings(
-        league,
-        season
+    loadLeague(
+        "laliga-table",
+        140
     );
 
 
 
-    if(data && data[0]){
-
-
-        const teams =
-        data[0].league.standings[0];
-
-
-        displayStandings(
-            "premier-table",
-            teams
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-/* ==========================
-   DEMARAGE STANDINGS
-========================== */
-
-
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-
-    loadLaLiga();
-
-
-    loadPremierLeague();
-
-
-});
-}
-
-/* ==========================
-   PREZISCORE 🇭🇹
-   STANDINGS API
-   PARTIE 2B
-========================== */
-
-
-/* ==========================
-   CHARGE SERIE A
-========================== */
-
-
-async function loadSerieA(){
-
-
-    const season = 2025;
-
-    const league = 135; // Serie A
-
-
-
-    const data =
-    await getLeagueStandings(
-        league,
-        season
+    loadLeague(
+        "premier-table",
+        39
     );
 
 
 
-    if(data && data[0]){
-
-
-        displayStandings(
-            "seriea-table",
-            data[0].league.standings[0]
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   CHARGE BUNDESLIGA
-========================== */
-
-
-async function loadBundesliga(){
-
-
-    const season = 2025;
-
-    const league = 78; // Bundesliga
-
-
-
-    const data =
-    await getLeagueStandings(
-        league,
-        season
+    loadLeague(
+        "seriea-table",
+        135
     );
 
 
 
-    if(data && data[0]){
-
-
-        displayStandings(
-            "bundes-table",
-            data[0].league.standings[0]
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-
-/* ==========================
-   CHARGE CHAMPIONS LEAGUE
-========================== */
-
-
-async function loadChampionsLeague(){
-
-
-    const season = 2025;
-
-    const league = 2; // Champions League
-
-
-
-    const data =
-    await getLeagueStandings(
-        league,
-        season
+    loadLeague(
+        "bundes-table",
+        78
     );
 
 
 
-    if(data && data[0]){
-
-
-        displayStandings(
-            "ucl-table",
-            data[0].league.standings[0]
-        );
-
-
-    }
-
-
-}
-
-
-/* ==========================
-   CHARGE LIGUE 1 FRANCE
-========================== */
-
-
-async function loadLigue1(){
-
-
-    const season = 2025;
-
-    const league = 61; // Ligue 1
-
-
-
-    const data =
-    await getLeagueStandings(
-        league,
-        season
+    loadLeague(
+        "ligue1-table",
+        61
     );
 
 
 
-    if(data && data[0]){
-
-
-        displayStandings(
-            "ligue1-table",
-            data[0].league.standings[0]
-        );
-
-
-    }
+    loadLeague(
+        "ucl-table",
+        2
+    );
 
 
 }
 
-
-
-
-/* ==========================
-   REFRESH STANDINGS
-========================== */
-
-
-function refreshStandings(){
-
-
-    loadLaLiga();
-
-    loadPremierLeague();
-
-    loadSerieA();
-
-    loadBundesliga();
-
-    loadChampionsLeague();
-
-
-}
 
 
 
@@ -1004,7 +721,7 @@ document.addEventListener(
 ()=>{
 
 
-    refreshStandings();
-loadLigue1();
+    loadAllStandings();
+
 
 });
