@@ -540,3 +540,436 @@ document.addEventListener(
 
 
 });
+
+/* ==========================
+   PREZISCORE 🇭🇹
+   STANDINGS API
+   PARTIE 1
+========================== */
+
+
+/* ==========================
+   GET LEAGUE STANDINGS
+========================== */
+
+
+async function getLeagueStandings(leagueId, season){
+
+
+    try{
+
+
+        const response = await fetch(
+
+        API_URL +
+        "standings?league=" +
+        leagueId +
+        "&season=" +
+        season,
+
+        {
+
+            method:"GET",
+
+            headers:apiHeaders
+
+        }
+
+        );
+
+
+
+        const data =
+        await response.json();
+
+
+
+        console.log(
+        "Standings API:",
+        data
+        );
+
+
+
+        return data.response;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Erreur standings:",
+        error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   AFFICHER KLASMAN
+========================== */
+
+
+function displayStandings(tableId, teams){
+
+
+    const table =
+    document.getElementById(tableId);
+
+
+
+    if(!table || !teams) return;
+
+
+
+    table.innerHTML = "";
+
+
+
+    teams.forEach((item)=>{
+
+
+        let team =
+        item.team;
+
+
+
+        let stats =
+        item.all;
+
+
+
+        table.innerHTML += `
+
+
+        <tr>
+
+
+        <td>
+
+        ${item.rank}
+
+        </td>
+
+
+
+        <td>
+
+        ${team.name}
+
+        </td>
+
+
+
+        <td>
+
+        ${stats.played}
+
+        </td>
+
+
+
+        <td>
+
+        ${item.points}
+
+        </td>
+
+
+        </tr>
+
+
+        `;
+
+
+    });
+
+
+/* ==========================
+   PREZISCORE 🇭🇹
+   STANDINGS API
+   PARTIE 2A
+========================== */
+
+
+/* ==========================
+   CHARGE LALIGA
+========================== */
+
+
+async function loadLaLiga(){
+
+
+    const season = 2025;
+
+    const league = 140; // LaLiga
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        const teams =
+        data[0].league.standings[0];
+
+
+        displayStandings(
+            "laliga-table",
+            teams
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   CHARGE PREMIER LEAGUE
+========================== */
+
+
+async function loadPremierLeague(){
+
+
+    const season = 2025;
+
+    const league = 39; // Premier League
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        const teams =
+        data[0].league.standings[0];
+
+
+        displayStandings(
+            "premier-table",
+            teams
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+/* ==========================
+   DEMARAGE STANDINGS
+========================== */
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+    loadLaLiga();
+
+
+    loadPremierLeague();
+
+
+});
+}
+
+/* ==========================
+   PREZISCORE 🇭🇹
+   STANDINGS API
+   PARTIE 2B
+========================== */
+
+
+/* ==========================
+   CHARGE SERIE A
+========================== */
+
+
+async function loadSerieA(){
+
+
+    const season = 2025;
+
+    const league = 135; // Serie A
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        displayStandings(
+            "seriea-table",
+            data[0].league.standings[0]
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   CHARGE BUNDESLIGA
+========================== */
+
+
+async function loadBundesliga(){
+
+
+    const season = 2025;
+
+    const league = 78; // Bundesliga
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        displayStandings(
+            "bundes-table",
+            data[0].league.standings[0]
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   CHARGE CHAMPIONS LEAGUE
+========================== */
+
+
+async function loadChampionsLeague(){
+
+
+    const season = 2025;
+
+    const league = 2; // Champions League
+
+
+
+    const data =
+    await getLeagueStandings(
+        league,
+        season
+    );
+
+
+
+    if(data && data[0]){
+
+
+        displayStandings(
+            "ucl-table",
+            data[0].league.standings[0]
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* ==========================
+   REFRESH STANDINGS
+========================== */
+
+
+function refreshStandings(){
+
+
+    loadLaLiga();
+
+    loadPremierLeague();
+
+    loadSerieA();
+
+    loadBundesliga();
+
+    loadChampionsLeague();
+
+
+}
+
+
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+    refreshStandings();
+
+
+});
