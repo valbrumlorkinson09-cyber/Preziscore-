@@ -172,6 +172,35 @@ function homePage(){
     `;
 
 }
+
+function teamPage(team){
+
+    let content = document.querySelector(".matches");
+
+    content.innerHTML = homeButton() + `
+
+    <h2>${team}</h2>
+
+    <div class="match">
+        <h3>📊 Enfòmasyon</h3>
+
+        <p>🏆 Match jwe: 3</p>
+        <p>✅ Viktwa: 2</p>
+        <p>🤝 Nul: 1</p>
+        <p>❌ Defèt: 0</p>
+
+        <hr>
+
+        <h3>Dènye Match</h3>
+
+        <p>${team} 2 - 1 Brazil</p>
+        <p>${team} 1 - 1 Maroc</p>
+        <p>${team} 3 - 0 France</p>
+
+    </div>
+
+    `;
+}
 function matchDetails(){
 
 let content = document.querySelector(".matches");
