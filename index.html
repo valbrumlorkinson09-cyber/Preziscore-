@@ -87,59 +87,31 @@ Gade tout
 
 
 
-<section class="cards">
-
+<section id="live-container" class="cards">
 
 <div class="match-card live">
 
-
 <div class="league">
 
-🔴 LIVE
+🔄 Ap chèche match yo...
 
 <span>
-65'
+LIVE
 </span>
 
 </div>
 
 
-
 <div class="teams">
 
-
-<div>
-
-<img src="assets/images/realmadrid.png">
-
-<p>Real Madrid</p>
-
-</div>
-
-
-
-<h2>
-2 - 1
-</h2>
-
-
-
-<div>
-
-<img src="assets/images/barcelona.png">
-
-<p>Barcelona</p>
-
-</div>
-
-
+<h3>
+PreziScore ap konekte ak match yo...
+</h3>
 
 </div>
 
 
 </div>
-
-
 
 </section>
 
@@ -520,6 +492,191 @@ Vin Premium
 
 
 
+<script src="api.js"></script>
+
+<script src="script.js"></script>
+
+
+<script>
+
+
+/* ==========================
+   PREZISCORE INDEX API START
+========================== */
+
+
+async function startHomeAPI(){
+
+
+    // Match LIVE
+
+    await displayLiveMatches();
+
+
+
+    // Match jodi a
+
+    let today = new Date()
+    .toISOString()
+    .split("T")[0];
+
+
+
+    await displayTodayMatches(today);
+
+
+
+}
+
+
+
+startHomeAPI();
+
+
+
+/* Rafrechi done yo chak 60 segonn */
+
+
+setInterval(()=>{
+
+
+    displayLiveMatches();
+
+
+},60000);
+
+
+
+</script>
+  
+/* ==========================
+   PREZISCORE INDEX API
+   PARTIE 2B
+========================== */
+
+
+<script>
+
+
+/* Loader API */
+
+function showLoading(){
+
+
+    const live =
+    document.getElementById("live-container");
+
+
+    if(live){
+
+        live.innerHTML = `
+
+        <div class="match-card">
+
+        🔄 PreziScore ap chèche match yo...
+
+        </div>
+
+        `;
+
+    }
+
+
+}
+
+
+
+
+
+/* Erè API */
+
+function showApiError(){
+
+
+    const live =
+    document.getElementById("live-container");
+
+
+    if(live){
+
+        live.innerHTML = `
+
+        <div class="match-card">
+
+        ⚠️ Pa gen match LIVE disponib kounye a.
+
+        </div>
+
+        `;
+
+    }
+
+
+}
+
+
+
+
+
+/* Demaraj final */
+
+async function PreziScoreHome(){
+
+
+    try{
+
+
+        showLoading();
+
+
+
+        await displayLiveMatches();
+
+
+
+        let date =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+
+        await displayTodayMatches(date);
+
+
+
+        console.log(
+        "✅ Index konekte ak API"
+        );
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "API Error:",
+        error
+        );
+
+
+        showApiError();
+
+
+    }
+
+
+}
+
+
+
+
+
+PreziScoreHome();
+
+
+
+</script>
 </body>
 
 </html>
