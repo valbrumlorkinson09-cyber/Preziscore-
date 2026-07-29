@@ -5,7 +5,6 @@
    PARTIE 1
 ========================== */
 
-
 /* ==========================
    🔴 LIVE MATCH SYSTEM
 ========================== */
@@ -34,7 +33,13 @@ data
 
 
 
-const matches = data?.matches || [];
+const matches =
+data?.matches ||
+data?.data ||
+data?.results ||
+data?.events ||
+[];
+
 
 
 
@@ -71,18 +76,19 @@ matches.forEach(match=>{
 
 const home =
 match.homeTeam?.name ||
-match.home?.team?.name ||
 match.teams?.home?.name ||
+match.home?.name ||
 match.home_name ||
 "Match";
 
 
 const away =
 match.awayTeam?.name ||
-match.away?.team?.name ||
 match.teams?.away?.name ||
+match.away?.name ||
 match.away_name ||
 "Match";
+
 
 
 const homeScore =
@@ -92,6 +98,7 @@ match.scores?.home ??
 0;
 
 
+
 const awayScore =
 match.score?.away ??
 match.away_score ??
@@ -99,11 +106,21 @@ match.scores?.away ??
 0;
 
 
-const status =
+
+let status =
 match.status ||
 match.state ||
 match.period ||
 "Live";
+
+
+// Si status la se yon objè
+if(typeof status === "object"){
+status =
+status.type ||
+status.name ||
+"Live";
+}
 
 
 
@@ -111,10 +128,14 @@ container.innerHTML += `
 
 <div class="match-card">
 
-<h4>🔴 LIVE</h4>
+
+<h4>
+🔴 ${status}
+</h4>
 
 
 <div class="teams">
+
 
 <h3>
 ${home}
@@ -129,6 +150,7 @@ ${homeScore} - ${awayScore}
 <h3>
 ${away}
 </h3>
+
 
 </div>
 
@@ -148,7 +170,7 @@ ${away}
 });
 
 
-}
+   }
 
  
 /* ==========================
