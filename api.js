@@ -87,7 +87,7 @@ headers:apiHeaders
 const data =
 await response.json();
 
-
+console.log("API REPONS:", data);
 
 console.log(
 "API RESPONSE:",
