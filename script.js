@@ -1,129 +1,25 @@
 /* ==========================
    ⚽ PREZISCORE 🇭🇹
-   GLOBAL SCRIPT
-   SPORTSC0RE SYSTEM
+   NOUVO GLOBAL SCRIPT
+   SPORTSCORE SYSTEM
    PARTIE 1
 ========================== */
 
 
 /* ==========================
-   🔴 LOAD LIVE MATCH
+   🔴 LIVE MATCH SYSTEM
 ========================== */
+
 
 async function loadLiveMatches(){
 
-const containers = document.querySelectorAll("#live-container");
+
+const containers = document.querySelectorAll(
+"#live-container"
+);
+
 
 if(containers.length === 0) return;
-
-
-const data = await getLiveMatches();
-
-
-console.log("SPORTSCORE LIVE:", data);
-
-
-let matches = data.matches || [];
-
-
-containers.forEach(container=>{
-
-
-if(matches.length === 0){
-
-container.innerHTML = `
-<div class="match-card">
-<h3>⚠️ Pa gen match LIVE disponib kounye a.</h3>
-</div>
-`;
-
-return;
-
-}
-
-
-container.innerHTML = "";
-
-
-matches.forEach(match=>{
-
-
-const home =
-match.home?.name ||
-match.homeTeam?.name ||
-match.home_name ||
-"Unknown";
-
-
-const away =
-match.away?.name ||
-match.awayTeam?.name ||
-match.away_name ||
-"Unknown";
-
-
-const homeScore =
-match.score?.home ??
-match.home_score ??
-0;
-
-
-const awayScore =
-match.score?.away ??
-match.away_score ??
-0;
-
-
-const status =
-match.status ||
-match.state ||
-"Live";
-
-
-container.innerHTML += `
-
-<div class="match-card">
-
-<h4>🔴 LIVE</h4>
-
-<div class="teams">
-
-<h3>${home}</h3>
-
-<h2>
-${homeScore} - ${awayScore}
-</h2>
-
-<h3>${away}</h3>
-
-</div>
-
-<p>
-⏱ ${status}
-</p>
-
-</div>
-
-`;
-
-});
-
-
-});
-
-
-}
-/* ==========================
-   ⚽ LOAD MATCHES
-========================== */
-
-async function loadMatches(){
-
-const container =
-document.querySelector("#matches-container");
-
-
-if(!container) return;
 
 
 
@@ -132,14 +28,17 @@ const data = await getLiveMatches();
 
 
 console.log(
-"MATCH DATA:",
+"SPORTSCORE LIVE DATA:",
 data
 );
 
 
 
-let matches = data.matches || [];
+const matches = data?.matches || [];
 
+
+
+containers.forEach(container=>{
 
 
 if(matches.length === 0){
@@ -170,10 +69,180 @@ container.innerHTML = "";
 matches.forEach(match=>{
 
 
+const home =
+match.homeTeam?.name ||
+match.home?.team?.name ||
+match.teams?.home?.name ||
+match.home_name ||
+"Match";
+
+
+const away =
+match.awayTeam?.name ||
+match.away?.team?.name ||
+match.teams?.away?.name ||
+match.away_name ||
+"Match";
+
+
+const homeScore =
+match.score?.home ??
+match.home_score ??
+match.scores?.home ??
+0;
+
+
+const awayScore =
+match.score?.away ??
+match.away_score ??
+match.scores?.away ??
+0;
+
+
+const status =
+match.status ||
+match.state ||
+match.period ||
+"Live";
+
+
+
 container.innerHTML += `
 
 <div class="match-card">
 
+<h4>🔴 LIVE</h4>
+
+
+<div class="teams">
+
+<h3>
+${home}
+</h3>
+
+
+<h2>
+${homeScore} - ${awayScore}
+</h2>
+
+
+<h3>
+${away}
+</h3>
+
+</div>
+
+
+<p>
+⏱ ${status}
+</p>
+
+
+</div>
+
+`;
+
+});
+
+
+});
+
+
+}
+
+ 
+/* ==========================
+   ⚽ MATCH SYSTEM
+========================== */
+
+
+async function loadMatches(){
+
+
+const container =
+document.querySelector("#matches-container");
+
+
+if(!container) return;
+
+
+
+const data = await getLiveMatches();
+
+
+
+console.log(
+"SPORTSCORE MATCH DATA:",
+data
+);
+
+
+
+const matches =
+data?.matches || [];
+
+
+
+if(matches.length === 0){
+
+
+container.innerHTML = `
+
+<div class="match-card">
+
+<h3>
+⚠️ Pa gen match disponib.
+</h3>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+container.innerHTML = "";
+
+
+
+matches.forEach(match=>{
+
+
+const home =
+match.homeTeam?.name ||
+match.teams?.home?.name ||
+match.home_name ||
+"Équipe";
+
+
+const away =
+match.awayTeam?.name ||
+match.teams?.away?.name ||
+match.away_name ||
+"Équipe";
+
+
+
+const homeScore =
+match.score?.home ??
+match.home_score ??
+0;
+
+
+
+const awayScore =
+match.score?.away ??
+match.away_score ??
+0;
+
+
+
+container.innerHTML += `
+
+<div class="match-card">
 
 <h4>
 ⚽ Match
@@ -182,23 +251,19 @@ container.innerHTML += `
 
 <div class="teams">
 
-
 <h3>
-${match.home_team || "Ekip A"}
+${home}
 </h3>
 
 
 <h2>
-${match.home_score ?? 0}
--
-${match.away_score ?? 0}
+${homeScore} - ${awayScore}
 </h2>
 
 
 <h3>
-${match.away_team || "Ekip B"}
+${away}
 </h3>
-
 
 </div>
 
@@ -216,13 +281,15 @@ ${match.status || "Ap vini"}
 
 
 }
+
  
 /* ==========================
-   🏆 LOAD STANDINGS
+   🏆 STANDINGS SYSTEM
 ========================== */
 
 
 async function loadStandings(){
+
 
 const container =
 document.querySelector("#standings-container");
@@ -239,13 +306,21 @@ const data = await getStandings(
 
 
 console.log(
-"STANDINGS DATA:",
+"SPORTSCORE STANDINGS:",
 data
 );
 
 
 
-if(!data){
+const standings =
+data?.standings ||
+data?.table ||
+[];
+
+
+
+
+if(standings.length === 0){
 
 
 container.innerHTML = `
@@ -253,7 +328,7 @@ container.innerHTML = `
 <div class="match-card">
 
 <h3>
-⚠️ Pa gen klasman disponib.
+⚠️ Klasman pa disponib.
 </h3>
 
 </div>
@@ -263,11 +338,6 @@ container.innerHTML = `
 return;
 
 }
-
-
-
-let standings =
-data.standings || [];
 
 
 
@@ -284,11 +354,9 @@ container.innerHTML += `
 
 
 <h3>
-
-${team.position || "--"} 
+${team.position || "--"}
 -
-${team.team || "Ekip"}
-
+${team.team?.name || team.name || "Ekip"}
 </h3>
 
 
@@ -310,9 +378,8 @@ Pwen: ${team.points || 0}
 
 
 
-
 /* ==========================
-   👑 LOAD TOP PLAYERS
+   👑 PLAYERS SYSTEM
 ========================== */
 
 
@@ -327,20 +394,10 @@ if(!container) return;
 
 
 
-const data = await getTopScorers(
-"premier-league"
-);
-
-
-
 console.log(
-"PLAYERS DATA:",
-data
+"PREZISCORE PLAYERS SYSTEM AKTIF"
 );
 
-
-
-if(!data){
 
 
 container.innerHTML = `
@@ -348,57 +405,24 @@ container.innerHTML = `
 <div class="match-card">
 
 <h3>
-⚠️ Pa gen jwè disponib.
-</h3>
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-
-let players =
-data.players || [];
-
-
-
-container.innerHTML = "";
-
-
-
-players.forEach(player=>{
-
-
-container.innerHTML += `
-
-<div class="match-card">
-
-
-<h3>
-👑 ${player.name || "Jwè"}
+👑 Top jwè yo ap pare...
 </h3>
 
 
 <p>
-⚽ Gòl: ${player.goals || 0}
+Estatistik jwè yo ap vini ak done SportScore.
 </p>
-
 
 </div>
 
 `;
 
-});
 
 
 }
- 
+
 /* ==========================
-   🚀 PREZISCORE START SYSTEM
+   🚀 PREZISCORE START
 ========================== */
 
 
@@ -408,7 +432,7 @@ document.addEventListener(
 
 
 console.log(
-"⚽ PREZISCORE SYSTEM AKTIF"
+"⚽ PREZISCORE SPORTSC0RE SYSTEM AKTIF"
 );
 
 
