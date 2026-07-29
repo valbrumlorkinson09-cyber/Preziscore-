@@ -1,12 +1,12 @@
 /* ==========================
    ⚽ PREZISCORE 🇭🇹
-   SCRIPT GLOBAL
-   ETAP 13 - PATI 1
+   SPORTSC0RE SCRIPT
+   ETAP 14 - PATI 1
 ========================== */
 
 
 /* ==========================
-   AFFICHE MATCH LIVE
+   🔴 CHAJ LIVE MATCH
 ========================== */
 
 
@@ -21,23 +21,27 @@ if(!container) return;
 
 
 
-const result =
-await getLiveMatches();
+const data = await getLiveMatches();
 
 
 
-if(!result || !result.response){
+console.log(
+"LIVE SPORTSC0RE:",
+data
+);
+
+
+
+if(!data || !data.matches || data.matches.length === 0){
 
 
 container.innerHTML = `
 
-<div class="match-card live">
+<div class="match-card">
 
-<div class="league">
-
-⚠️ Pa gen match LIVE disponib
-
-</div>
+<h3>
+⚠️ Pa gen match LIVE disponib kounye a.
+</h3>
 
 </div>
 
@@ -49,33 +53,21 @@ return;
 
 
 
-const matches =
-result.response;
-
-
-
 container.innerHTML = "";
 
 
 
-matches.forEach(match=>{
+data.matches.forEach(match=>{
 
 
 container.innerHTML += `
 
-
-<div class="match-card live">
+<div class="match-card">
 
 
 <div class="league">
 
 🔴 LIVE
-
-<span>
-
-${match.status?.elapsed || 0}'
-
-</span>
 
 </div>
 
@@ -86,51 +78,48 @@ ${match.status?.elapsed || 0}'
 
 <div>
 
-<img src="${match.home?.logo || ''}">
-
-<p>
-
-${match.home?.name || "Ekip"}
-
-</p>
+<h3>
+${match.home_team || "Home"}
+</h3>
 
 </div>
-
 
 
 
 <h2>
 
-${match.home?.score ?? 0}
+${match.home_score ?? 0}
 
 -
 
-${match.away?.score ?? 0}
+${match.away_score ?? 0}
 
 </h2>
 
 
 
-
 <div>
 
-<img src="${match.away?.logo || ''}">
+<h3>
+${match.away_team || "Away"}
+</h3>
+
+</div>
+
+
+</div>
+
+
 
 <p>
 
-${match.away?.name || "Ekip"}
+⏱ ${match.status || "Live"}
 
 </p>
 
-</div>
-
-
-
-</div>
 
 
 </div>
-
 
 `;
 
@@ -143,23 +132,22 @@ ${match.away?.name || "Ekip"}
 
 
 
+
 /* ==========================
-   DEMARA LIVE
+   START PREZISCORE
 ========================== */
 
 
 document.addEventListener(
-
 "DOMContentLoaded",
-
 ()=>{
 
 
 loadLiveMatches();
-console.log("DONE API LIVE:", result);
+
 
 console.log(
-"🔴 PreziScore Live aktif"
+"🔥 PREZISCORE SPORTSC0RE AKTIF"
 );
 
 
