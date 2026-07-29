@@ -156,7 +156,7 @@ document.addEventListener(
 
 
 loadLiveMatches();
-
+console.log("DONE API LIVE:", result);
 
 console.log(
 "🔴 PreziScore Live aktif"
