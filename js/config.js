@@ -10,7 +10,7 @@ const API_CONFIG = {
 
     BASE_URL: "https://v3.football.api-sports.io",
 
-    API_KEY: "METE_API_KEY_LA_APRE"
+    API_KEY: "47f671279defefb2b169097f1062a2a6:
 
 };
 
