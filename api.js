@@ -4,7 +4,7 @@
 ========================== */
 
 
-const RAPID_API_KEY = "X-RapidAPI-Key
+const RAPID_API_KEY = "
 fe08bb1ed4mshd1a647c90e2c802p172617jsn1f453b26a050";
 
 
@@ -32,13 +32,7 @@ const headers = {
 
 
 async function getLiveMatches(){
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
 
-getLiveMatches();
-
-});
 
 try{
 
@@ -88,3 +82,15 @@ error
 
 
 }
+
+
+
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+getLiveMatches();
+
+});
