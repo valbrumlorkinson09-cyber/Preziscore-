@@ -30,3 +30,70 @@ const headers = {
 console.log(
 "⚽ PreziScore nouvo API pare"
 );
+/* ==========================
+   PREZISCORE 🇭🇹
+   LIVE MATCH
+========================== */
+
+
+async function getLiveMatches(){
+
+
+try{
+
+
+const response = await fetch(
+
+RAPID_URL + "/football-current-live",
+
+{
+
+method:"GET",
+
+headers:headers
+
+}
+
+);
+
+
+
+const data = await response.json();
+
+
+
+console.log(
+"🔴 LIVE MATCH:",
+data
+);
+
+
+
+return data;
+
+
+
+}catch(error){
+
+
+console.log(
+"Erreur Live API:",
+error
+);
+
+
+return null;
+
+
+}
+
+}
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+getLiveMatches();
+
+
+});
