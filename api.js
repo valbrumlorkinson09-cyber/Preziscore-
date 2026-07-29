@@ -11,7 +11,7 @@
 ========================== */
 
 
-const RAPID_API_KEY = "METE_NOUVO_KEY_LA";
+const RAPID_API_KEY = "fe08bb1ed4mshd1a647c90e2c802p172617jsn1f453b26a050";
 
 
 const RAPID_HOST =
