@@ -103,3 +103,29 @@ console.error("API Error:", error);
 }
 
 }
+// ===============================
+// PREZISCORE EVENTS
+// ===============================
+
+async function getEvents(teamId){
+
+try{
+
+const response = await fetch(
+`${API_URL}/eventslast.php?id=${teamId}`
+);
+
+const data = await response.json();
+
+console.log("Events:", data);
+
+return data;
+
+
+}catch(error){
+
+console.error("Events Error:", error);
+
+}
+
+}
