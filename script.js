@@ -12,6 +12,10 @@
 
 async function loadLiveMatches(){
 
+const data = await getLiveMatches();
+
+console.log("SPORTSCORE REPONS KONPLÈ:", data);
+
 
 const container =
 document.getElementById("live-container");
@@ -20,8 +24,23 @@ document.getElementById("live-container");
 if(!container) return;
 
 
+container.innerHTML = `
 
-const data = await getLiveMatches();
+<div class="match-card">
+
+<h3>
+API konekte ✅
+</h3>
+
+<p>
+${JSON.stringify(data)}
+</p>
+
+</div>
+
+`;
+
+}
 
 
 
