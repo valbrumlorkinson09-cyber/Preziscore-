@@ -1,10 +1,17 @@
 /* ==========================
-   PREZISCORE 🇭🇹
-   RAPID API GLOBAL
+   ⚽ PREZISCORE 🇭🇹
+   GLOBAL API.JS
+   RAPID API FOOTBALL
+   PARTIE 1
 ========================== */
 
 
-const RAPID_API_KEY = "fe08bb1ed4mshd1a647c90e2c802p172617jsn1f453b26a050";
+/* ==========================
+   CONFIGURATION API
+========================== */
+
+
+const RAPID_API_KEY = "METE_NOUVO_KEY_LA";
 
 
 const RAPID_HOST =
@@ -15,7 +22,15 @@ const RAPID_URL =
 "https://free-api-live-football-data.p.rapidapi.com";
 
 
-const headers = {
+
+
+
+/* ==========================
+   HEADERS
+========================== */
+
+
+const apiHeaders = {
 
 "x-rapidapi-host": RAPID_HOST,
 
@@ -27,16 +42,27 @@ const headers = {
 
 
 
-console.log(
-"⚽ PreziScore nouvo API pare"
-);
+
+
 /* ==========================
-   PREZISCORE 🇭🇹
-   LIVE MATCH
+   API STATUS
 ========================== */
 
 
-async function getLiveMatches(){
+console.log(
+"⚽ PREZISCORE API GLOBAL AKTIVE"
+);
+
+
+
+
+
+/* ==========================
+   FUNCTION API GENERALE
+========================== */
+
+
+async function apiRequest(endpoint){
 
 
 try{
@@ -44,13 +70,13 @@ try{
 
 const response = await fetch(
 
-RAPID_URL + "/football-current-live",
+RAPID_URL + endpoint,
 
 {
 
 method:"GET",
 
-headers:headers
+headers:apiHeaders
 
 }
 
@@ -58,12 +84,13 @@ headers:headers
 
 
 
-const data = await response.json();
+const data =
+await response.json();
 
 
 
 console.log(
-"🔴 LIVE MATCH:",
+"API RESPONSE:",
 data
 );
 
@@ -77,9 +104,10 @@ return data;
 
 
 console.log(
-"Erreur Live API:",
+"API ERROR:",
 error
 );
+
 
 
 return null;
@@ -87,13 +115,5 @@ return null;
 
 }
 
+
 }
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-
-
-getLiveMatches();
-
-
-});
