@@ -24,7 +24,7 @@ if(containers.length === 0) return;
 
 const data = await getLiveMatches();
 
-
+console.log("DONE API YO:", JSON.stringify(data, null, 2));
 
 console.log(
 "SPORTSCORE LIVE DATA:",
