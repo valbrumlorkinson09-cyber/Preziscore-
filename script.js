@@ -69,36 +69,45 @@ console.log("🔥 Byenveni sou PreziScore Football Intelligence");
 // PREZISCORE LIVE MATCH
 // ===============================
 
-
 async function loadLiveMatches(){
-
 
 const liveContainer = document.getElementById("live-container");
 
-
 if(!liveContainer){
-    return;
+return;
 }
-
-
-try{
-
-
-// Egzanp ekip pou teste API a
-const data = await searchTeam("Barcelona");
-
-
-if(!data || !data.teams){
 
 
 liveContainer.innerHTML = `
 
 <div class="card">
 
-<h2>🔴 Pa gen match LIVE</h2>
+<h2>🔄 Ap chèche match yo...</h2>
 
 <p>
-Nou pa jwenn done pou kounya.
+Koneksyon PreziScore ap fèt
+</p>
+
+</div>
+
+`;
+
+
+// Tès ak Barcelona ID TheSportsDB
+
+const matches = await getEvents("133739");
+
+
+if(!matches || !matches.events){
+
+liveContainer.innerHTML = `
+
+<div class="card">
+
+<h2>⚽ Pa gen match disponib</h2>
+
+<p>
+Nou pa jwenn match pou kounya.
 </p>
 
 </div>
@@ -111,70 +120,40 @@ return;
 
 
 
-liveContainer.innerHTML = "";
+liveContainer.innerHTML="";
 
 
-data.teams.forEach(team=>{
+matches.events.forEach(match=>{
 
 
 liveContainer.innerHTML += `
 
-
 <div class="card">
 
+<h2>${match.strHomeTeam}</h2>
 
-<img src="${team.strTeamBadge || ''}" width="80">
+<h3>
+${match.intHomeScore ?? 0} - ${match.intAwayScore ?? 0}
+</h3>
 
-
-<h2>${team.strTeam}</h2>
-
-
-<p>
-🏟️ ${team.strStadium || "Stad pa disponib"}
-</p>
-
+<h2>${match.strAwayTeam}</h2>
 
 <p>
-🌍 ${team.strCountry || ""}
+🏆 ${match.strLeague}
 </p>
 
+<p>
+📅 ${match.dateEvent}
+</p>
 
 </div>
 
-
 `;
-
 
 });
 
 
-}catch(error){
-
-
-console.log("Live Error:", error);
-
-
-liveContainer.innerHTML = `
-
-<div class="card">
-
-<h2>❌ Erè koneksyon</h2>
-
-<p>
-Tcheke API a.
-</p>
-
-</div>
-
-`;
-
 }
-
-
-}
-
-
-
-// Lanse Live otomatikman
 
 loadLiveMatches();
+
