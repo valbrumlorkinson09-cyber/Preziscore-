@@ -12,28 +12,18 @@
 
 async function loadLiveMatches(){
 
-const containers = document.querySelectorAll(
-"#live-container"
-);
-
+const containers = document.querySelectorAll("#live-container");
 
 if(containers.length === 0) return;
-
 
 
 const data = await getLiveMatches();
 
 
-
-console.log(
-"LIVE DATA:",
-data
-);
-
+console.log("SPORTSCORE LIVE:", data);
 
 
 let matches = data.matches || [];
-
 
 
 containers.forEach(container=>{
@@ -42,15 +32,9 @@ containers.forEach(container=>{
 if(matches.length === 0){
 
 container.innerHTML = `
-
 <div class="match-card">
-
-<h3>
-⚠️ Pa gen match LIVE disponib kounye a.
-</h3>
-
+<h3>⚠️ Pa gen match LIVE disponib kounye a.</h3>
 </div>
-
 `;
 
 return;
@@ -58,50 +42,65 @@ return;
 }
 
 
-
 container.innerHTML = "";
 
 
-
 matches.forEach(match=>{
+
+
+const home =
+match.home?.name ||
+match.homeTeam?.name ||
+match.home_name ||
+"Unknown";
+
+
+const away =
+match.away?.name ||
+match.awayTeam?.name ||
+match.away_name ||
+"Unknown";
+
+
+const homeScore =
+match.score?.home ??
+match.home_score ??
+0;
+
+
+const awayScore =
+match.score?.away ??
+match.away_score ??
+0;
+
+
+const status =
+match.status ||
+match.state ||
+"Live";
 
 
 container.innerHTML += `
 
 <div class="match-card">
 
-<h4>
-🔴 LIVE
-</h4>
-
+<h4>🔴 LIVE</h4>
 
 <div class="teams">
 
-
-<h3>
-${match.home_team || "Ekip A"}
-</h3>
-
+<h3>${home}</h3>
 
 <h2>
-${match.home_score ?? 0}
--
-${match.away_score ?? 0}
+${homeScore} - ${awayScore}
 </h2>
 
-
-<h3>
-${match.away_team || "Ekip B"}
-</h3>
-
+<h3>${away}</h3>
 
 </div>
 
-
 <p>
-⏱ ${match.status || "An dirèk"}
+⏱ ${status}
 </p>
-
 
 </div>
 
