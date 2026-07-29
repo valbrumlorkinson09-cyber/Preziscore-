@@ -1,15 +1,16 @@
 /* ==========================
    ⚽ PREZISCORE 🇭🇹
-   GLOBAL SCRIPT.JS
+   SCRIPT GLOBAL
+   ETAP 13 - PATI 1
 ========================== */
 
 
 /* ==========================
-   AFFICHAGE LIVE
+   AFFICHE MATCH LIVE
 ========================== */
 
 
-async function showLiveMatches(){
+async function loadLiveMatches(){
 
 
 const container =
@@ -20,28 +21,12 @@ if(!container) return;
 
 
 
-const data =
+const result =
 await getLiveMatches();
 
 
 
-if(!data){
-
-
-container.innerHTML = `
-
-<div class="match-card">
-
-⚠️ Erè koneksyon API
-
-</div>
-
-`;
-
-return;
-
-}
-
+if(!result || !result.response){
 
 
 container.innerHTML = `
@@ -50,58 +35,9 @@ container.innerHTML = `
 
 <div class="league">
 
-🔴 LIVE CONNECTE
+⚠️ Pa gen match LIVE disponib
 
 </div>
-
-
-<div class="teams">
-
-<h3>
-PreziScore ap resevwa done yo...
-</h3>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-
-
-
-
-/* ==========================
-   AFFICHAGE MATCH JODI A
-========================== */
-
-
-async function showTodayMatches(){
-
-
-const container =
-document.getElementById("today-container");
-
-
-if(!container) return;
-
-
-
-const data =
-await getTodayMatches();
-
-
-
-if(!data){
-
-
-container.innerHTML = `
-
-<div class="match-card">
-
-⚠️ Pa gen done match
 
 </div>
 
@@ -113,29 +49,93 @@ return;
 
 
 
-container.innerHTML = `
+const matches =
+result.response;
 
-<div class="match-card">
+
+
+container.innerHTML = "";
+
+
+
+matches.forEach(match=>{
+
+
+container.innerHTML += `
+
+
+<div class="match-card live">
+
 
 <div class="league">
 
-⚽ MATCH JODI A
+🔴 LIVE
+
+<span>
+
+${match.status?.elapsed || 0}'
+
+</span>
 
 </div>
+
 
 
 <div class="teams">
 
-<h3>
-Done API resevwa ✅
-</h3>
+
+<div>
+
+<img src="${match.home?.logo || ''}">
+
+<p>
+
+${match.home?.name || "Ekip"}
+
+</p>
+
+</div>
+
+
+
+
+<h2>
+
+${match.home?.score ?? 0}
+
+-
+
+${match.away?.score ?? 0}
+
+</h2>
+
+
+
+
+<div>
+
+<img src="${match.away?.logo || ''}">
+
+<p>
+
+${match.away?.name || "Ekip"}
+
+</p>
+
+</div>
+
+
 
 </div>
 
 
 </div>
+
 
 `;
+
+});
+
 
 }
 
@@ -144,7 +144,7 @@ Done API resevwa ✅
 
 
 /* ==========================
-   START PREZISCORE
+   DEMARA LIVE
 ========================== */
 
 
@@ -155,14 +155,11 @@ document.addEventListener(
 ()=>{
 
 
-showLiveMatches();
-
-
-showTodayMatches();
+loadLiveMatches();
 
 
 console.log(
-"⚽ PreziScore Script aktif"
+"🔴 PreziScore Live aktif"
 );
 
 
