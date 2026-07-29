@@ -32,7 +32,13 @@ const headers = {
 
 
 async function getLiveMatches(){
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
+getLiveMatches();
+
+});
 
 try{
 
