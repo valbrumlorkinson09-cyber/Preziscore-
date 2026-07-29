@@ -65,3 +65,116 @@ console.log("🔥 Byenveni sou PreziScore Football Intelligence");
 
 
 });
+// ===============================
+// PREZISCORE LIVE MATCH
+// ===============================
+
+
+async function loadLiveMatches(){
+
+
+const liveContainer = document.getElementById("live-container");
+
+
+if(!liveContainer){
+    return;
+}
+
+
+try{
+
+
+// Egzanp ekip pou teste API a
+const data = await searchTeam("Barcelona");
+
+
+if(!data || !data.teams){
+
+
+liveContainer.innerHTML = `
+
+<div class="card">
+
+<h2>🔴 Pa gen match LIVE</h2>
+
+<p>
+Nou pa jwenn done pou kounya.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+liveContainer.innerHTML = "";
+
+
+data.teams.forEach(team=>{
+
+
+liveContainer.innerHTML += `
+
+
+<div class="card">
+
+
+<img src="${team.strTeamBadge || ''}" width="80">
+
+
+<h2>${team.strTeam}</h2>
+
+
+<p>
+🏟️ ${team.strStadium || "Stad pa disponib"}
+</p>
+
+
+<p>
+🌍 ${team.strCountry || ""}
+</p>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}catch(error){
+
+
+console.log("Live Error:", error);
+
+
+liveContainer.innerHTML = `
+
+<div class="card">
+
+<h2>❌ Erè koneksyon</h2>
+
+<p>
+Tcheke API a.
+</p>
+
+</div>
+
+`;
+
+}
+
+
+}
+
+
+
+// Lanse Live otomatikman
+
+loadLiveMatches();
