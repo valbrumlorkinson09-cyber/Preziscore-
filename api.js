@@ -93,3 +93,110 @@ document.addEventListener(
 getLiveMatches();
 
 });
+/* ==========================
+   AFFICHE MATCH LIVE
+========================== */
+
+
+async function displayLiveMatches(){
+
+
+const data = await getLiveMatches();
+
+
+const container =
+document.getElementById("live-container");
+
+
+if(!container) return;
+
+
+
+if(!data || !data.response || data.response.length === 0){
+
+
+container.innerHTML = `
+
+<div class="match-card">
+
+<div class="league">
+
+⚠️ Pa gen match LIVE disponib kounye a.
+
+</div>
+
+</div>
+
+`;
+
+
+return;
+
+}
+
+
+
+
+container.innerHTML = "";
+
+
+
+data.response.forEach(match=>{
+
+
+container.innerHTML += `
+
+<div class="match-card live">
+
+
+<div class="league">
+
+🔴 LIVE
+
+</div>
+
+
+
+<div class="teams">
+
+
+<div>
+
+<p>${match.home?.name || "Ekip A"}</p>
+
+</div>
+
+
+
+<h2>
+
+${match.home?.score ?? 0}
+
+-
+
+${match.away?.score ?? 0}
+
+</h2>
+
+
+
+<div>
+
+<p>${match.away?.name || "Ekip B"}</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
