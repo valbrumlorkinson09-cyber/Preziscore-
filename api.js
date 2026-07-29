@@ -117,3 +117,74 @@ return null;
 
 
 }
+/* ==========================
+   PREZISCORE 🇭🇹
+   API GLOBAL
+   PARTIE 2
+========================== */
+
+
+/* ==========================
+   GET LIVE MATCH
+========================== */
+
+
+async function getLiveMatches(){
+
+
+return await apiRequest(
+"/football-current-live"
+);
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET MATCH JODI A
+========================== */
+
+
+async function getTodayMatches(){
+
+
+let date = new Date()
+
+.toISOString()
+
+.split("T")[0];
+
+
+
+return await apiRequest(
+
+"/football-fixtures?date=" + date
+
+);
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET POPULAR LEAGUES
+========================== */
+
+
+async function getPopularLeagues(){
+
+
+return await apiRequest(
+
+"/football-popular-leagues"
+
+);
+
+
+}
