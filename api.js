@@ -188,3 +188,91 @@ return await apiRequest(
 
 
 }
+/* ==========================
+   PREZISCORE 🇭🇹
+   API GLOBAL
+   PARTIE 3
+========================== */
+
+
+/* ==========================
+   GET STANDINGS
+   KLASMAN
+========================== */
+
+
+async function getStandings(leagueId){
+
+
+return await apiRequest(
+
+"/football-standings?league=" + leagueId
+
+);
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET TEAMS
+========================== */
+
+
+async function getTeams(){
+
+
+return await apiRequest(
+
+"/football-teams"
+
+);
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET PLAYERS
+   JWÈ
+========================== */
+
+
+async function getPlayers(){
+
+
+return await apiRequest(
+
+"/football-players"
+
+);
+
+
+}
+
+
+
+
+
+/* ==========================
+   GET STATISTICS
+========================== */
+
+
+async function getStatistics(matchId){
+
+
+return await apiRequest(
+
+"/football-statistics?match=" + matchId
+
+);
+
+
+}
