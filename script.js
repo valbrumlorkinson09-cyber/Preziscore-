@@ -1,54 +1,71 @@
-
 /* ==========================
-   PREZISCORE 🇭🇹
+   ⚽ PREZISCORE 🇭🇹
    GLOBAL SCRIPT.JS
-   PARTIE 1
 ========================== */
 
 
 /* ==========================
-   RECHÈCH GLOBAL
+   AFFICHAGE LIVE
 ========================== */
 
-function searchPreziScore(inputId, itemsClass){
 
-    const input = document.getElementById(inputId);
-
-    if(!input) return;
+async function showLiveMatches(){
 
 
-    input.addEventListener("keyup", function(){
+const container =
+document.getElementById("live-container");
 
 
-        let value = input.value.toLowerCase();
-
-
-        const items = document.querySelectorAll(itemsClass);
+if(!container) return;
 
 
 
-        items.forEach(item=>{
+const data =
+await getLiveMatches();
 
 
-            let text = item.innerText.toLowerCase();
+
+if(!data){
 
 
-            if(text.includes(value)){
+container.innerHTML = `
 
-                item.style.display="block";
+<div class="match-card">
 
-            }else{
+⚠️ Erè koneksyon API
 
-                item.style.display="none";
+</div>
 
-            }
+`;
+
+return;
+
+}
 
 
-        });
+
+container.innerHTML = `
+
+<div class="match-card live">
+
+<div class="league">
+
+🔴 LIVE CONNECTE
+
+</div>
 
 
-    });
+<div class="teams">
 
+<h3>
+PreziScore ap resevwa done yo...
+</h3>
+
+</div>
+
+</div>
+
+`;
 
 }
 
@@ -57,130 +74,68 @@ function searchPreziScore(inputId, itemsClass){
 
 
 /* ==========================
-   DARK MODE
+   AFFICHAGE MATCH JODI A
 ========================== */
 
 
-function darkMode(){
+async function showTodayMatches(){
 
 
-    document.body.classList.toggle("dark");
+const container =
+document.getElementById("today-container");
 
 
-    localStorage.setItem(
-        "preziscore-dark",
-        document.body.classList.contains("dark")
-    );
+if(!container) return;
 
+
+
+const data =
+await getTodayMatches();
+
+
+
+if(!data){
+
+
+container.innerHTML = `
+
+<div class="match-card">
+
+⚠️ Pa gen done match
+
+</div>
+
+`;
+
+return;
 
 }
 
 
 
+container.innerHTML = `
+
+<div class="match-card">
+
+<div class="league">
+
+⚽ MATCH JODI A
+
+</div>
 
 
-window.addEventListener("load",()=>{
+<div class="teams">
+
+<h3>
+Done API resevwa ✅
+</h3>
+
+</div>
 
 
-    let dark =
-    localStorage.getItem("preziscore-dark");
+</div>
 
-
-    if(dark==="true"){
-
-        document.body.classList.add("dark");
-
-    }
-
-
-});
-
-
-
-
-
-/* ==========================
-   FAVORI
-========================== */
-
-
-function addFavorite(name){
-
-
-    let favorites =
-    JSON.parse(
-        localStorage.getItem("preziscore-favorites")
-    ) || [];
-
-
-
-    if(!favorites.includes(name)){
-
-
-        favorites.push(name);
-
-
-        localStorage.setItem(
-            "preziscore-favorites",
-            JSON.stringify(favorites)
-        );
-
-
-        alert(
-        name + " ajoute nan favori ⭐"
-        );
-
-
-    }else{
-
-
-        alert(
-        name + " deja nan favori"
-        );
-
-
-    }
-
-
-}
-
-/* ==========================
-   PREZISCORE 🇭🇹
-   SCRIPT.JS
-   PARTIE 2A
-========================== */
-
-
-/* ==========================
-   NOTIFICATION
-========================== */
-
-function showNotification(message){
-
-
-    const box = document.createElement("div");
-
-
-    box.className = "notification-box";
-
-
-    box.innerHTML = `
-        🔔 ${message}
-    `;
-
-
-    document.body.appendChild(box);
-
-
-
-    setTimeout(()=>{
-
-
-        box.remove();
-
-
-    },3000);
-
+`;
 
 }
 
@@ -189,220 +144,26 @@ function showNotification(message){
 
 
 /* ==========================
-   LIVE REFRESH
-========================== */
-
-
-function refreshLive(){
-
-
-    const live =
-    document.querySelector(".live");
-
-
-
-    if(live){
-
-
-        live.style.animation =
-        "pulse 1s infinite";
-
-
-    }
-
-
-}
-
-
-
-
-
-/* ==========================
-   CARD ANIMATION
-========================== */
-
-
-function animateCards(){
-
-
-    const cards =
-    document.querySelectorAll(
-        ".match-card, .news-card"
-    );
-
-
-
-    cards.forEach((card,index)=>{
-
-
-        card.style.opacity="0";
-
-
-        card.style.transform=
-        "translateY(20px)";
-
-
-
-        setTimeout(()=>{
-
-
-            card.style.transition=
-            "0.5s";
-
-
-            card.style.opacity="1";
-
-
-            card.style.transform=
-            "translateY(0)";
-
-
-
-        },index * 100);
-
-
-
-    });
-
-
-}
-
-
-
-
-
-/* ==========================
-   AUTO START
+   START PREZISCORE
 ========================== */
 
 
 document.addEventListener(
+
 "DOMContentLoaded",
+
 ()=>{
 
 
-    animateCards();
+showLiveMatches();
 
 
-    refreshLive();
+showTodayMatches();
 
 
-});
-
-/* ==========================
-   PREZISCORE 🇭🇹
-   SCRIPT.JS
-   PARTIE 2B
-========================== */
-
-
-/* ==========================
-   FAVORI BUTTON
-========================== */
-
-function favoriteButton(element, name){
-
-
-    element.addEventListener(
-    "click",
-    ()=>{
-
-
-        addFavorite(name);
-
-
-        showNotification(
-        name + " ajoute nan favori ⭐"
-        );
-
-
-    });
-
-
-}
-
-
-
-
-
-/* ==========================
-   GO TO PAGE
-========================== */
-
-
-function openPage(page){
-
-
-    window.location.href = page;
-
-
-}
-
-
-
-
-
-/* ==========================
-   LIVE SCORE UPDATE
-========================== */
-
-
-function updateScore(id, score){
-
-
-    const box =
-    document.getElementById(id);
-
-
-
-    if(box){
-
-        box.innerHTML = score;
-
-    }
-
-
-}
-
-
-
-
-
-/* ==========================
-   API READY FUNCTION
-========================== */
-
-
-function loadMatches(){
-
-
-    console.log(
-    "PreziScore ap prepare match yo ⚽"
-    );
-
-
-}
-
-
-
-
-
-/* ==========================
-   START APP
-========================== */
-
-
-window.addEventListener(
-"load",
-()=>{
-
-
-    loadMatches();
-
-
-    console.log(
-    "🔥 PreziScore pare!"
-    );
+console.log(
+"⚽ PreziScore Script aktif"
+);
 
 
 });
