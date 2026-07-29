@@ -1,56 +1,16 @@
 /* ==========================
    ⚽ PREZISCORE 🇭🇹
-   GLOBAL API.JS
-   RAPID API FOOTBALL
-   PARTIE 1
+   SPORTSC0RE GLOBAL API
 ========================== */
 
 
-/* ==========================
-   CONFIGURATION API
-========================== */
+const SPORT_API = 
+"https://sportscore.com/api/widget";
 
-
-const RAPID_API_KEY = "fe08bb1ed4mshd1a647c90e2c802p172617jsn1f453b26a050";
-
-
-const RAPID_HOST =
-"free-api-live-football-data.p.rapidapi.com";
-
-
-const RAPID_URL =
-"https://free-api-live-football-data.p.rapidapi.com";
-
-
-
-
-
-/* ==========================
-   HEADERS
-========================== */
-
-
-const apiHeaders = {
-
-"x-rapidapi-host": RAPID_HOST,
-
-"x-rapidapi-key": RAPID_API_KEY,
-
-"Content-Type":"application/json"
-
-};
-
-
-
-
-
-/* ==========================
-   API STATUS
-========================== */
 
 
 console.log(
-"⚽ PREZISCORE API GLOBAL AKTIVE"
+"⚽ PREZISCORE SPORTSC0RE API AKTIF"
 );
 
 
@@ -58,37 +18,30 @@ console.log(
 
 
 /* ==========================
-   FUNCTION API GENERALE
+   API REQUEST GLOBAL
 ========================== */
 
 
-async function apiRequest(endpoint){
+async function apiRequest(url){
 
 
 try{
 
 
-const response = await fetch(
-
-RAPID_URL + endpoint,
-
-{
-
-method:"GET",
-
-headers:apiHeaders
-
-}
-
-);
+const response = await fetch(url);
 
 
 
 const data = await response.json();
 
-console.log("API DATA:", data);
 
-return data;
+
+console.log(
+"SPORTSCORE DATA:",
+data
+);
+
+
 
 return data;
 
@@ -98,7 +51,7 @@ return data;
 
 
 console.log(
-"API ERROR:",
+"SPORTSCORE ERROR:",
 error
 );
 
@@ -111,50 +64,23 @@ return null;
 
 
 }
-/* ==========================
-   PREZISCORE 🇭🇹
-   API GLOBAL
-   PARTIE 2
-========================== */
+
+
+
 
 
 /* ==========================
-   GET LIVE MATCH
+   🔴 MATCH LIVE
 ========================== */
+
+
 async function getLiveMatches(){
 
-    const result = await apiRequest(
-        "/football-current-live"
-    );
-
-    console.log("LIVE RESULTAT KONPLÈ:", result);
-
-    return result;
-
-}
-
-
-
-
-/* ==========================
-   GET MATCH JODI A
-========================== */
-
-
-async function getTodayMatches(){
-
-
-let date = new Date()
-
-.toISOString()
-
-.split("T")[0];
-
-
 
 return await apiRequest(
 
-"/football-fixtures?date=" + date
+SPORT_API +
+"/matches/?sport=football&limit=20"
 
 );
 
@@ -165,41 +91,20 @@ return await apiRequest(
 
 
 
+
 /* ==========================
-   GET POPULAR LEAGUES
+   ⚽ MATCH DETAY
 ========================== */
 
 
-async function getPopularLeagues(){
+async function getMatchDetails(slug){
 
 
 return await apiRequest(
 
-"/football-popular-leagues"
-
-);
-
-
-}
-/* ==========================
-   PREZISCORE 🇭🇹
-   API GLOBAL
-   PARTIE 3
-========================== */
-
-
-/* ==========================
-   GET STANDINGS
-   KLASMAN
-========================== */
-
-
-async function getStandings(leagueId){
-
-
-return await apiRequest(
-
-"/football-standings?league=" + leagueId
+SPORT_API +
+"/match/?sport=football&slug=" 
++ slug
 
 );
 
@@ -210,17 +115,21 @@ return await apiRequest(
 
 
 
+
+
 /* ==========================
-   GET TEAMS
+   🏆 KLASMAN
 ========================== */
 
 
-async function getTeams(){
+async function getStandings(league){
 
 
 return await apiRequest(
 
-"/football-teams"
+SPORT_API +
+"/standings/?sport=football&slug="
++ league
 
 );
 
@@ -231,18 +140,22 @@ return await apiRequest(
 
 
 
+
+
 /* ==========================
-   GET PLAYERS
-   JWÈ
+   👑 TOP JWÈ
 ========================== */
 
 
-async function getPlayers(){
+async function getTopScorers(league){
 
 
 return await apiRequest(
 
-"/football-players"
+SPORT_API +
+"/topscorers/?sport=football&slug="
++ league +
+"&limit=20&stat=goals"
 
 );
 
@@ -253,17 +166,21 @@ return await apiRequest(
 
 
 
+
+
 /* ==========================
-   GET STATISTICS
+   👤 JWÈ DETAY
 ========================== */
 
 
-async function getStatistics(matchId){
+async function getPlayer(player){
 
 
 return await apiRequest(
 
-"/football-statistics?match=" + matchId
+SPORT_API +
+"/player/?sport=football&slug="
++ player
 
 );
 
