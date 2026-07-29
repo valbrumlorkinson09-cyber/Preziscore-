@@ -84,17 +84,11 @@ headers:apiHeaders
 
 
 
-const data =
-await response.json();
+const data = await response.json();
 
-console.log("API REPONS:", data);
+console.log("API DATA:", data);
 
-console.log(
-"API RESPONSE:",
-data
-);
-
-
+return data;
 
 return data;
 
