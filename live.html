@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="ht">
 
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PreziScore 🔴 Live</title>
+<title>PreziScore Live 🔴</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -22,7 +22,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <header class="header">
 
-
 <div class="logo">
 
 <h1>🔴 PREZISCORE LIVE</h1>
@@ -30,15 +29,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <p>Match an dirèk ⚽</p>
 
 </div>
-
-
-
-<div class="notif">
-
-<i class="fas fa-bell"></i>
-
-</div>
-
 
 </header>
 
@@ -48,9 +38,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <section class="section-title">
 
-
 <h2>🔴 Match Live Kounye a</h2>
-
 
 </section>
 
@@ -58,7 +46,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
 
-<section id="live-container">
+<section id="live-container" class="cards">
 
 
 <div class="match-card live">
@@ -71,14 +59,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </div>
 
 
-
 <div class="teams">
-
 
 <h3>
 Tanpri tann...
 </h3>
-
 
 </div>
 
@@ -92,15 +77,16 @@ Tanpri tann...
 
 
 
-<section class="today">
 
-
-<div class="section-title">
+<section class="section-title">
 
 <h2>⭐ Match Enpòtan</h2>
 
-</div>
+</section>
 
+
+
+<section class="cards">
 
 
 <div class="match-card">
@@ -116,25 +102,38 @@ PreziScore ap mete pi gwo match yo isit la.
 
 </section>
 
-<section class="today">
 
 
-<div class="section-title">
+
+
+
+
+<section class="section-title">
 
 <h2>📊 Estatistik Live</h2>
 
-</div>
+</section>
 
+
+<section class="cards">
 
 
 <div class="match-card">
 
 
-<p>🔴 Match aktif: <b>Ap tann done API</b></p>
+<p>
+🔴 Match aktif: Ap tann done API
+</p>
 
-<p>⚽ Skò yo mete ajou otomatikman</p>
 
-<p>⏱ Minit match la ap parèt an dirèk</p>
+<p>
+⚽ Skò yo mete ajou otomatikman
+</p>
+
+
+<p>
+⏱ Minit match la ap parèt an dirèk
+</p>
 
 
 </div>
@@ -146,18 +145,16 @@ PreziScore ap mete pi gwo match yo isit la.
 
 
 
-<section class="today">
 
 
-<div class="section-title">
+<section class="section-title">
 
 <h2>🔥 Match ki sot pase yo</h2>
 
-</div>
+</section>
 
 
-
-<div id="finished-container">
+<section class="cards">
 
 
 <div class="match-card">
@@ -171,10 +168,10 @@ Pa gen done pou kounye a...
 </div>
 
 
-</div>
-
-
 </section>
+
+
+
 
 
 
@@ -234,50 +231,14 @@ Pa gen done pou kounye a...
 
 </nav>
 
+
+
+
+
+
 <script src="api.js"></script>
 
 <script src="script.js"></script>
-
-
-
-<script>
-
-
-/* ==========================
-   PREZISCORE LIVE START
-========================== */
-
-
-async function startLive(){
-
-
-    await displayLiveMatches();
-
-
-}
-
-
-
-startLive();
-
-
-
-/* Rafrechi match yo chak 30 segonn */
-
-setInterval(()=>{
-
-
-    displayLiveMatches();
-
-
-},30000);
-
-
-
-</script>
-
-
-<script src="api.js"></script>
 
 
 </body>
