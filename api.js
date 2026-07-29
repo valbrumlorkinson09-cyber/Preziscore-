@@ -90,7 +90,131 @@ async function loadMatches(){
 
 }
 
+// =======================
+// LIVE MATCHES
+// =======================
 
+async function loadLiveMatches(){
+
+    const liveBox = document.getElementById("live-container");
+
+    if(!liveBox) return;
+
+
+    liveBox.innerHTML = "🔄 Ap chèche match LIVE yo...";
+
+
+    try {
+
+        // TheSportsDB pa bay tout live score gratis
+        // n ap itilize eventsday la pou tès
+
+        const today = new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+        const response = await fetch(
+        `${BASE_URL}${API_KEY}/eventsday.php?d=${today}&s=Soccer`
+        );
+
+
+        const data = await response.json();
+
+
+        liveBox.innerHTML = "";
+
+
+        if(!data.events){
+
+            liveBox.innerHTML = `
+            <div class="match-card">
+            ⚽ Pa gen match LIVE kounye a
+            </div>
+            `;
+
+            return;
+        }
+
+
+        data.events.forEach(match=>{
+
+
+            liveBox.innerHTML += `
+
+            <div class="match-card">
+
+            <h3>🔴 LIVE</h3>
+
+            <p>
+            ${match.strHomeTeam}
+            🆚
+            ${match.strAwayTeam}
+            </p>
+
+            <p>
+            ⚽ ${match.intHomeScore ?? 0}
+            -
+            ${match.intAwayScore ?? 0}
+            </p>
+
+            </div>
+
+            `;
+
+
+        });
+
+
+    }catch(error){
+
+        console.log(error);
+
+        liveBox.innerHTML =
+        "❌ Erè chajman LIVE";
+
+    }
+
+}
+
+
+
+// =======================
+// STATS
+// =======================
+
+function loadStats(){
+
+const statsBox = document.getElementById("stats-container");
+
+if(!statsBox) return;
+
+
+statsBox.innerHTML = `
+
+<div class="match-card">
+
+<p>
+⚽ Gòl : --
+</p>
+
+<p>
+🎯 Tir : --
+</p>
+
+<p>
+🚩 Kònè : --
+</p>
+
+<p>
+🟨 Kat jòn : --
+</p>
+
+</div>
+
+`;
+
+    }
 
 // =======================
 // START
@@ -98,5 +222,13 @@ async function loadMatches(){
 
 document.addEventListener(
 "DOMContentLoaded",
-loadMatches
+()=>{
+
+loadMatches();
+
+loadLiveMatches();
+
+loadStats();
+
+}
 );
