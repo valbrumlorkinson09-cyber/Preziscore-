@@ -127,18 +127,17 @@ return null;
 /* ==========================
    GET LIVE MATCH
 ========================== */
-
-
 async function getLiveMatches(){
 
+    const result = await apiRequest(
+        "/football-current-live"
+    );
 
-return await apiRequest(
-"/football-current-live"
-);
+    console.log("LIVE RESULTAT KONPLÈ:", result);
 
+    return result;
 
 }
-
 
 
 
